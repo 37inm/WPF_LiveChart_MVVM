@@ -36,11 +36,11 @@
                         <RowDefinition/>
                         <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
-                    <Label Content="Humidity" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
+                    <Label Content="Humidity" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="205" Height="44" VerticalAlignment="Bottom"/>
 
-                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding Humidity}" Margin="0,0,10,0" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1" Height="24" VerticalAlignment="Center" HorizontalAlignment="Right" Width="185"/>
 
-                    <oxy:PlotView x:Name="plotHumidity" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotHumidityModel}" Grid.Row="2" Height="221" VerticalAlignment="Center" HorizontalAlignment="Right" Width="205" />
 
                 </Grid>
             </Border>
@@ -55,7 +55,7 @@
 
                     <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotPm1_0" Grid.Row="2" BorderThickness="0" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotPm1_0Model}" Grid.Row="2" BorderThickness="0" />
 
                 </Grid>
             </Border>
@@ -70,7 +70,7 @@
 
                     <TextBlock x:Name="txtPm2_5"  Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotPm2_5" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotPm2_5Model}" Grid.Row="2" />
                 </Grid>
             </Border>
             <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="3" >
@@ -84,7 +84,7 @@
 
                     <TextBlock x:Name="txtPm10"  Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotPm10" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotPm10Model}" Grid.Row="2" />
                 </Grid>
             </Border>
             <Border BorderThickness="1" BorderBrush="#FFACACAC" Grid.Column="4" >
@@ -98,7 +98,7 @@
 
                     <TextBlock x:Name="txtSensor0"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotSensor0" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotPidModel}" Grid.Row="2" />
                 </Grid>
             </Border>
             <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Row="1" >
@@ -112,7 +112,7 @@
 
                     <TextBlock x:Name="txtTemperature"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotTemperature" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotTemperatureModel}" Grid.Row="2" />
                 </Grid>
             </Border>
             <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC"  Grid.Column="1" Grid.Row="1" >
@@ -126,7 +126,7 @@
 
                     <TextBlock x:Name="txtSensor1"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotSensor1" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotMicsModel}" Grid.Row="2" />
                 </Grid>
             </Border>
             <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="2" Grid.Row="1" >
@@ -140,7 +140,7 @@
 
                     <TextBlock x:Name="txtSensor2"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotSensor2" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotCjmcuModel}" Grid.Row="2" />
                 </Grid>
             </Border>
             <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="3" Grid.Row="1" >
@@ -154,7 +154,7 @@
 
                     <TextBlock x:Name="txtSensor3"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotSensor3" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotMqModel}" Grid.Row="2" />
                 </Grid>
             </Border>
             <Border BorderThickness="1" BorderBrush="#FFACACAC" Grid.Column="4" Grid.Row="1" >
@@ -168,7 +168,7 @@
 
                     <TextBlock x:Name="txtSensor4"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
-                    <oxy:PlotView x:Name="plotSensor4" Grid.Row="2" />
+                    <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotHchoModel}" Grid.Row="2" />
                 </Grid>
             </Border>
         </Grid>
@@ -192,17 +192,17 @@
                     <TextBlock x:Name="txtTimer" Text="00:00:00" TextAlignment="Center" IsEnabled="False" FontWeight="Bold"/>
                     <Label/>
                     <Label x:Name="lblPort" Content="Port" />
-                    <ComboBox x:Name="cmbPorts" Background="#FFF3EDED" Margin="0" BorderThickness="2,2,1,1" />
+                    <ComboBox ItemsSource="{Binding _serialViewModel.SerialPorts}" SelectedItem="{Binding _serialViewModel.SelectedSerialPort}" IsEnabled="{Binding _serialViewModel.SerialState}" Background="#FFF3EDED" Margin="0" BorderThickness="2,2,1,1" />
                     <Label x:Name="lblBaud" Content="Baud" />
-                    <ComboBox x:Name="cmbBaudRate" BorderThickness="2,2,1,1" />
+                    <ComboBox ItemsSource="{Binding _serialViewModel.SerialBaudRate}" SelectedItem="{Binding _serialViewModel.SelectedSerialBaudRate}" IsEnabled="{Binding _serialViewModel.SerialState}"  BorderThickness="2,2,1,1" />
                     <Label/>
-                    <Button x:Name="btnConnect" Content="Connect" Height="40" BorderThickness="1,1,2,2"/>
+                    <Button Command="{Binding _serialViewModel.SerialCommand}" Content="{Binding _serialViewModel.SerialAvailable}" Height="40" BorderThickness="1,1,2,2"/>
                     <Label/>
-                    <CheckBox x:Name="checkMysql" Content="Use MySQL"  BorderThickness="2,2,1,1"/>
+                    <CheckBox Command="{Binding _serialViewModel.AvailableMysqlCommand}" IsEnabled="{Binding _serialViewModel.SerialState}" Content="Use MySQL"  BorderThickness="2,2,1,1"/>
                 </StackPanel>
 
                 <Border BorderThickness="0,1" BorderBrush="Black" Grid.Row="2" >
-                    <StackPanel x:Name="stackMysql" IsEnabled="False" Margin="10">
+                    <StackPanel x:Name="stackMysql" IsEnabled="{Binding _serialViewModel.MysqlState}" Margin="10">
                         <Label Content="Server"/>
                         <TextBox x:Name="txtServer" Text="127.0.0.1" BorderThickness="2,2,1,1"/>
                         <Label Content="Database"/>

@@ -3,11 +3,13 @@ using WPF_LiveChart_MVVM.Model;
 
 namespace WPF_LiveChart_MVVM.ViewModel
 {
-    class MainViewModel
+    class MainViewModel 
     {
 
         public SerialViewModel _serialViewModel { get; set; }
         public OxyPlotViewModel _oxyPlotViewModel {get; set;}
+
+       
 
         public MainViewModel()
         {
