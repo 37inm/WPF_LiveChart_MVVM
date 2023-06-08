@@ -10,9 +10,9 @@ namespace WPF_LiveChart_MVVM.ViewModel.Command
     class RelayCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
-        private Action _execute;
+        private Action<string> _execute;
 
-        public RelayCommand(Action execute)
+        public RelayCommand(Action<string> execute)
         {
             _execute = execute;
         }
@@ -24,7 +24,7 @@ namespace WPF_LiveChart_MVVM.ViewModel.Command
 
         public void Execute(object parameter)
         {
-            _execute.Invoke();
+            _execute.Invoke(parameter as string);
         }
     }
 }
