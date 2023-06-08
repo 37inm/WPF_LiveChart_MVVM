@@ -5,23 +5,18 @@ using System.Windows;
 
 namespace WPF_LiveChart_MVVM.Service
 {
-    class DataBase
+    class DataBaseService
     {
         private MySqlConnection connection;
         private string tableName;
-        // string _userName, string _pw, string _server, string _database
-        public void OpenDatabase()
+        public bool OpenDatabase(string _userName, string _pw, string _server, string _database)
         {
             try
             {
-                string uid = "root";
-                string password = "8546elefjq";
-                string server = "127.0.0.1";
-                string database = "Hello";
-                //string uid = _userName;
-                //string password = _pw;
-                //string server = _server;
-                //string database = _database;
+                string uid = _userName;
+                string password = _pw;
+                string server = _server;
+                string database = _database;
                 string defaultTableName = DateTime.Now.ToString("yyMMdd_HHmm");
                 tableName = Interaction.InputBox("저장할 테이블의 이름을 입력하세요:", "사용할 테이블 이름 입력", defaultTableName);
                 string connectionString = $"server={server};database={database};uid={uid};password={password};";
@@ -45,12 +40,12 @@ namespace WPF_LiveChart_MVVM.Service
                 createTableCommand.ExecuteNonQuery();
 
                 MessageBox.Show(tableName + " Connect !");
-                //return true;
+                return true;
 
             } catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
-                //return false;
+                return false;
             }
         }
 
@@ -91,6 +86,7 @@ namespace WPF_LiveChart_MVVM.Service
         public void CloseDatabase()
         {
             connection.Close();
+            MessageBox.Show(tableName + " Disconnect !");
         }
     }
 }

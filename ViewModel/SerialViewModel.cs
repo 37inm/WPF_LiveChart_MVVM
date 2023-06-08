@@ -15,20 +15,12 @@ namespace WPF_LiveChart_MVVM.ViewModel
         private SerialPort _serialCommunication;
         private OxyPlotViewModel _oxyPlotViewModel;
         private DataModel _dataModel;
-        private DataBase _database;
+        private DataBaseService _database;
+
         int i = 0;
 
         private string _data;
-        public string Data
-        {
-            get { return _data; }
-            set
-            {
-                _data = value;
-                OnPropertyChanged(nameof(Data));
-            }
-        }
-
+       
         private string _serialAvailable;
         public string SerialAvailable
         {
@@ -85,6 +77,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
+        
         private RelayCommand _serialCommand;
         public RelayCommand SerialCommand
         {
@@ -106,33 +99,35 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 OnPropertyChanged(nameof(MysqlCommand));
             }
         }
-
+        
 
         public SerialViewModel(OxyPlotViewModel oxyPlotView)
         {
             LoadSerialPorts();
             SerialBaudRate = new ObservableCollection<int> { 9600, 14400, 19200, 38400, 57600, 115200 };
-            _database = new DataBase();
+            _database = new DataBaseService();
+
             SerialCommand = new RelayCommand(OpenSerial);
-            //MysqlCommand = new RelayCommand(_database.OpenDatabase);
+            MysqlCommand = new RelayCommand(OpenDatabase);
             _oxyPlotViewModel = oxyPlotView;
             _dataModel = new DataModel();
             SerialAvailable = "Open";
         }
 
-        private void OpenSerial(string a)
+        private void OpenSerial()
         {
             _serialCommunication = new SerialPort();
 
             try
             {
+                
                 _serialCommunication.PortName = SelectedSerialPort;
                 _serialCommunication.BaudRate = SelectedSerialBaudRate;
                 _serialCommunication.DataReceived += SerialPort_DataReceived;
                 _serialCommunication.Open();
                 if (_serialCommunication.IsOpen)
                 {
-                    //SerialCommand = new RelayCommand(CloseSerial);
+                    SerialCommand = new RelayCommand(CloseSerial);
                     SerialAvailable = "Close";
                 }
             }
@@ -143,13 +138,18 @@ namespace WPF_LiveChart_MVVM.ViewModel
 
         }
 
-        private void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
+        public void OpenDatabase()
+        {
+            _= _database.OpenDatabase("root", "8546elefjq", "127.0.0.1", "Hello");
+        }
+
+        public void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             try
             {
                 string ReceivedData = _serialCommunication.ReadLine();
 
-                Data = ReceivedData;
+                _ = ReceivedData;
                 _dataModel.Time = i;
                 i++;
                 _oxyPlotViewModel.GraphUpdate(_dataModel.Time);
@@ -169,6 +169,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 _serialCommunication.DataReceived -= SerialPort_DataReceived;
                 _serialCommunication.DiscardInBuffer();
                 _serialCommunication.Close();
+                _database.CloseDatabase();
                 if (!_serialCommunication.IsOpen)
                 {
                     SerialCommand = new RelayCommand(OpenSerial);

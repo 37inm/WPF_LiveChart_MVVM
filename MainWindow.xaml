@@ -7,16 +7,222 @@
         xmlns:local="clr-namespace:WPF_LiveChart_MVVM"
         xmlns:ViewModel="clr-namespace:WPF_LiveChart_MVVM.ViewModel" x:Class="WPF_LiveChart_MVVM.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="sensor values graph_230608" Height="698.001" Width="1291.615">
     <Window.DataContext>
         <ViewModel:MainViewModel/>
     </Window.DataContext>
-    <Grid>
-        <ComboBox ItemsSource="{Binding _serialViewModel.SerialPorts}" SelectedItem="{Binding _serialViewModel.SelectedSerialPort}" Margin="45,32,602,355"/>
-        <ComboBox ItemsSource="{Binding _serialViewModel.SerialBaudRate}" SelectedItem="{Binding _serialViewModel.SelectedSerialBaudRate}" HorizontalAlignment="Left" Margin="47,110,0,0" VerticalAlignment="Top" Width="153" Height="46"/>
-        <Button Command="{Binding _serialViewModel.SerialCommand}" Content="{Binding _serialViewModel.SerialAvailable}" Margin="47,185,605,190"/>
-        <TextBox TextWrapping="Wrap" Text="{Binding _serialViewModel.Data}" Margin="271,21,212,70"/>
-        <oxy:PlotView Model="{Binding _oxyPlotViewModel._plotHumidityModel}" Margin="602,21,32,66"/>
-        <Button Command="{Binding _serialViewModel.MysqlCommand}" Margin="66,266,605,54"/>
+    <Grid Background="#FFF1F1F1" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="8*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" >
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Humidity" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
+
+                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotHumidity" Grid.Row="2" />
+
+                </Grid>
+            </Border>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="1">
+                <Grid  Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="PM 1.0" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
+
+                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotPm1_0" Grid.Row="2" BorderThickness="0" />
+
+                </Grid>
+            </Border>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="2" >
+                <Grid  Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="PM 2.5" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
+
+                    <TextBlock x:Name="txtPm2_5"  Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotPm2_5" Grid.Row="2" />
+                </Grid>
+            </Border>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="3" >
+                <Grid Grid.Column="3" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="PM 10" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
+
+                    <TextBlock x:Name="txtPm10"  Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotPm10" Grid.Row="2" />
+                </Grid>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="#FFACACAC" Grid.Column="4" >
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="PID" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
+
+                    <TextBlock x:Name="txtSensor0"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotSensor0" Grid.Row="2" />
+                </Grid>
+            </Border>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Row="1" >
+                <Grid  Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="Temperature" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
+
+                    <TextBlock x:Name="txtTemperature"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotTemperature" Grid.Row="2" />
+                </Grid>
+            </Border>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC"  Grid.Column="1" Grid.Row="1" >
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="MiCS" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
+
+                    <TextBlock x:Name="txtSensor1"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotSensor1" Grid.Row="2" />
+                </Grid>
+            </Border>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="2" Grid.Row="1" >
+                <Grid Margin="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="CJMCU" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
+
+                    <TextBlock x:Name="txtSensor2"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotSensor2" Grid.Row="2" />
+                </Grid>
+            </Border>
+            <Border BorderThickness="1,1,0,1" BorderBrush="#FFACACAC" Grid.Column="3" Grid.Row="1" >
+                <Grid Margin="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="MQ" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
+
+                    <TextBlock x:Name="txtSensor3"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotSensor3" Grid.Row="2" />
+                </Grid>
+            </Border>
+            <Border BorderThickness="1" BorderBrush="#FFACACAC" Grid.Column="4" Grid.Row="1" >
+                <Grid Margin="10" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="5*"/>
+                    </Grid.RowDefinitions>
+                    <Label Content="HCHO" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
+
+                    <TextBlock x:Name="txtSensor4"  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+
+                    <oxy:PlotView x:Name="plotSensor4" Grid.Row="2" />
+                </Grid>
+            </Border>
+        </Grid>
+        <Border BorderThickness="1" Margin="10" BorderBrush="Black" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid x:Name="toggleGrid">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ToggleButton x:Name="toggleSerial" Content="Serial" FontWeight="Bold" BorderThickness="1,1,2,1" />
+                    <ToggleButton x:Name="toggleUdp" Content="UDP" Grid.Column="1"  FontWeight="Bold" BorderThickness="1,1,2,1"/>
+                </Grid>
+                <StackPanel Margin="10" Grid.Row="1">
+                    <TextBlock x:Name="txtTimer" Text="00:00:00" TextAlignment="Center" IsEnabled="False" FontWeight="Bold"/>
+                    <Label/>
+                    <Label x:Name="lblPort" Content="Port" />
+                    <ComboBox x:Name="cmbPorts" Background="#FFF3EDED" Margin="0" BorderThickness="2,2,1,1" />
+                    <Label x:Name="lblBaud" Content="Baud" />
+                    <ComboBox x:Name="cmbBaudRate" BorderThickness="2,2,1,1" />
+                    <Label/>
+                    <Button x:Name="btnConnect" Content="Connect" Height="40" BorderThickness="1,1,2,2"/>
+                    <Label/>
+                    <CheckBox x:Name="checkMysql" Content="Use MySQL"  BorderThickness="2,2,1,1"/>
+                </StackPanel>
+
+                <Border BorderThickness="0,1" BorderBrush="Black" Grid.Row="2" >
+                    <StackPanel x:Name="stackMysql" IsEnabled="False" Margin="10">
+                        <Label Content="Server"/>
+                        <TextBox x:Name="txtServer" Text="127.0.0.1" BorderThickness="2,2,1,1"/>
+                        <Label Content="Database"/>
+                        <TextBox x:Name="txtDatabase" Text="Hello" BorderThickness="2,2,1,1"/>
+                        <Label Content="Name"/>
+                        <TextBox x:Name="txtUserName" Text="root" BorderThickness="2,2,1,1"/>
+                        <Label Content="Password"/>
+                        <TextBox x:Name="txtPassword" Text="8546elefjq" BorderThickness="2,2,1,1"/>
+                        <Label/>
+                        <Button x:Name="btnMysql" Content="Connect"  Height="40" BorderThickness="1,1,2,2"/>
+                    </StackPanel>
+                </Border>
+                <StackPanel Grid.Row="3" Margin="10">
+                    <Label Content="Graph" HorizontalContentAlignment="Center" FontWeight="Bold"/>
+                    <Button x:Name="btnLive" Content="Stop" Height="40" BorderThickness="1,1,2,2"/>
+                    <Label/>
+                    <Button x:Name="btnClear" Content="Clear" Height="40" BorderThickness="1,1,2,2"/>
+                </StackPanel>
+            </Grid>
+
+        </Border>
     </Grid>
 </Window>
