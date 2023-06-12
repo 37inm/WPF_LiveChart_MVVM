@@ -196,13 +196,13 @@
                     <Label x:Name="lblBaud" Content="Baud" />
                     <ComboBox ItemsSource="{Binding _serialViewModel.SerialBaudRate}" SelectedItem="{Binding _serialViewModel.SelectedSerialBaudRate}" IsEnabled="{Binding _serialViewModel.SerialState}"  BorderThickness="2,2,1,1" />
                     <Label/>
-                    <Button Command="{Binding _serialViewModel.SerialCommand}" Content="{Binding _serialViewModel.SerialAvailable}" Height="40" BorderThickness="1,1,2,2"/>
+                    <Button Command="{Binding _serialViewModel.SerialCommand}" Content="{Binding _serialViewModel.SerialContent}" Height="40" BorderThickness="1,1,2,2"/>
                     <Label/>
-                    <CheckBox Command="{Binding _serialViewModel.AvailableMysqlCommand}" IsEnabled="{Binding _serialViewModel.SerialState}" Content="Use MySQL"  BorderThickness="2,2,1,1"/>
+                    <CheckBox Command="{Binding _serialViewModel.AvailableMysqlCommand}" IsEnabled="{Binding _serialViewModel.MysqlState}" Content="Use MySQL"  BorderThickness="2,2,1,1"/>
                 </StackPanel>
 
                 <Border BorderThickness="0,1" BorderBrush="Black" Grid.Row="2" >
-                    <StackPanel x:Name="stackMysql" IsEnabled="{Binding _serialViewModel.MysqlState}" Margin="10">
+                    <StackPanel x:Name="stackMysql" IsEnabled="{Binding _serialViewModel.AvailableMysql}" Margin="10">
                         <Label Content="Server"/>
                         <TextBox x:Name="txtServer" Text="127.0.0.1" BorderThickness="2,2,1,1"/>
                         <Label Content="Database"/>
@@ -212,7 +212,7 @@
                         <Label Content="Password"/>
                         <TextBox x:Name="txtPassword" Text="8546elefjq" BorderThickness="2,2,1,1"/>
                         <Label/>
-                        <Button x:Name="btnMysql" Content="Connect"  Height="40" BorderThickness="1,1,2,2"/>
+                        <Button Command="{Binding _serialViewModel.MysqlCommand}" Content="{Binding _serialViewModel.MysqlContent}" Height="40" BorderThickness="1,1,2,2"/>
                     </StackPanel>
                 </Border>
                 <StackPanel Grid.Row="3" Margin="10">

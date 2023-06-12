@@ -83,10 +83,19 @@ namespace WPF_LiveChart_MVVM.Service
         }
 
 
-        public void CloseDatabase()
+        public bool CloseDatabase()
         {
-            connection.Close();
-            MessageBox.Show(tableName + " Disconnect !");
+            try
+            {
+                connection.Close();
+                MessageBox.Show(tableName + " Disconnect !");
+                return false;
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+                return true;
+            }
+            
         }
     }
 }
