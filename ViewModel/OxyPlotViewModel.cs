@@ -1,13 +1,60 @@
 ﻿using OxyPlot;
 using OxyPlot.Series;
 using System.ComponentModel;
+using WPF_LiveChart_MVVM.ViewModel.Command;
 
 namespace WPF_LiveChart_MVVM.ViewModel
 {
-    class OxyPlotViewModel
+    class OxyPlotViewModel : INotifyPropertyChanged
     {
         private int _dataCount;
-        
+
+        private string _liveContent;
+        public string LiveContent
+        {
+            get { return _liveContent; }
+            set
+            {
+                _liveContent = value;
+                OnPropertyChanged(nameof(LiveContent));
+            }
+        }
+
+        private bool _liveState;
+        public bool LiveState
+        {
+            get { return _liveState; }
+            set
+            {
+                _liveState = value;
+                OnPropertyChanged(nameof(LiveState));
+            }
+        }
+
+
+        private RelayCommand _stopCommand;
+        public RelayCommand StopCommand
+        {
+            get { return _stopCommand; }
+            set
+            {
+                _stopCommand = value;
+                OnPropertyChanged(nameof(StopCommand));
+            }
+        }
+
+        private RelayCommand _claerCommand;
+        public RelayCommand ClearCommand
+        {
+            get { return _claerCommand; }
+            set
+            {
+                _claerCommand = value;
+                OnPropertyChanged(nameof(ClearCommand));
+            }
+        }
+
+
         public PlotModel _plotHumidityModel { get; set;}
         public PlotModel _plotTemperatureModel { get; set; }
         public PlotModel _plotPm1_0Model { get; set; }
@@ -29,6 +76,13 @@ namespace WPF_LiveChart_MVVM.ViewModel
         private LineSeries lineCjmcu;
         private LineSeries lineMq;
         private LineSeries lineHcho;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public OxyPlotViewModel()
         {
@@ -73,6 +127,12 @@ namespace WPF_LiveChart_MVVM.ViewModel
             _plotMqModel.Series.Add(lineMq);
             _plotHchoModel.Series.Add(lineHcho);
 
+            LiveContent = "Stop";
+            LiveState = true;
+
+            StopCommand = new RelayCommand(ToggleLive);
+            ClearCommand = new RelayCommand(GrahpClear);
+            
         }
 
         public void GraphHumidity(double value)
@@ -149,7 +209,22 @@ namespace WPF_LiveChart_MVVM.ViewModel
             _plotHchoModel.InvalidatePlot(state);
         }
 
-        public void ClearGraph()
+        private void ToggleLive()
+        {
+            if (LiveState)
+            {
+                LiveState = !LiveState;
+                LiveContent = "Live";
+            }
+            else
+            {
+                LiveState = !LiveState;
+                LiveContent = "Stop";
+            }
+        }
+
+        
+        public void GrahpClear()
         {
             _dataCount = 0;
             lineHumidty.Points.Clear();

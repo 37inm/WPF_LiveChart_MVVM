@@ -22,7 +22,7 @@ namespace WPF_LiveChart_MVVM.Service
                 string connectionString = $"server={server};database={database};uid={uid};password={password};";
                 connection = new MySqlConnection(connectionString);
                 string createTableQuery = "CREATE TABLE IF NOT EXISTS `" + tableName + "` (`Pk` INT NOT NULL AUTO_INCREMENT, " +
-                    "`Time` INT NULL, " +
+                    "`Time` VARCHAR(45) NULL, " +
                     "`Humidity` VARCHAR(45) NULL, " +
                     "`Temperature` VARCHAR(45) NULL, " +
                     "`PM1_0` VARCHAR(45) NULL, " +
@@ -49,26 +49,14 @@ namespace WPF_LiveChart_MVVM.Service
             }
         }
 
-        public void AddData(double humidity, double temperature, double pm1_0, double pm2_5, double pm10, double pid, double mics, double cjmcu, double mq, double hcho)
+        public void AddData(string timer, double humidity, double temperature, double pm1_0, double pm2_5, double pm10, double pid, double mics, double cjmcu, double mq, double hcho)
         {
             string insertDataQuery = "INSERT INTO " + tableName + " (Time, Humidity, Temperature, PM1_0, PM2_5, PM10, PID, MiCS, CJMCU, MQ, HCHO) " +
                         "VALUES (@Time, @Humidity, @Temperature, @PM1_0, @PM2_5, @PM10, @PID, @MiCS, @CJMCU, @MQ, @HCHO);";
 
             MySqlCommand insertDataCommand = new MySqlCommand(insertDataQuery, connection);
-            //insertDataCommand.Parameters.AddWithValue("@Time", seconds);
-            //insertDataCommand.Parameters.AddWithValue("@Humidity", splitData[0]);
-            //insertDataCommand.Parameters.AddWithValue("@Temperature", splitData[1]);
-            //insertDataCommand.Parameters.AddWithValue("@PM1_0", splitData[2]);
-            //insertDataCommand.Parameters.AddWithValue("@PM2_5", splitData[3]);
-            //insertDataCommand.Parameters.AddWithValue("@PM10", splitData[4]);
-            //insertDataCommand.Parameters.AddWithValue("@PID", splitData[5]);
-            //insertDataCommand.Parameters.AddWithValue("@MiCS", splitData[6]);
-            //insertDataCommand.Parameters.AddWithValue("@CJMCU", splitData[7]);
-            //insertDataCommand.Parameters.AddWithValue("@MQ", splitData[8]);
-            //insertDataCommand.Parameters.AddWithValue("@HCHO", splitData[9]);
-            //insertDataCommand.ExecuteNonQuery();
 
-            insertDataCommand.Parameters.AddWithValue("@Time", 1);
+            insertDataCommand.Parameters.AddWithValue("@Time", timer);
             insertDataCommand.Parameters.AddWithValue("@Humidity", humidity);
             insertDataCommand.Parameters.AddWithValue("@Temperature", temperature);
             insertDataCommand.Parameters.AddWithValue("@PM1_0", pm1_0);
