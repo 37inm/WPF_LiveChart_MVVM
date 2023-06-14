@@ -49,7 +49,7 @@ namespace WPF_LiveChart_MVVM.Service
             }
         }
 
-        public void AddData()
+        public void AddData(double humidity, double temperature, double pm1_0, double pm2_5, double pm10, double pid, double mics, double cjmcu, double mq, double hcho)
         {
             string insertDataQuery = "INSERT INTO " + tableName + " (Time, Humidity, Temperature, PM1_0, PM2_5, PM10, PID, MiCS, CJMCU, MQ, HCHO) " +
                         "VALUES (@Time, @Humidity, @Temperature, @PM1_0, @PM2_5, @PM10, @PID, @MiCS, @CJMCU, @MQ, @HCHO);";
@@ -69,16 +69,16 @@ namespace WPF_LiveChart_MVVM.Service
             //insertDataCommand.ExecuteNonQuery();
 
             insertDataCommand.Parameters.AddWithValue("@Time", 1);
-            insertDataCommand.Parameters.AddWithValue("@Humidity", 1);
-            insertDataCommand.Parameters.AddWithValue("@Temperature", 1);
-            insertDataCommand.Parameters.AddWithValue("@PM1_0", 1);
-            insertDataCommand.Parameters.AddWithValue("@PM2_5", 1);
-            insertDataCommand.Parameters.AddWithValue("@PM10", 1);
-            insertDataCommand.Parameters.AddWithValue("@PID", 1);
-            insertDataCommand.Parameters.AddWithValue("@MiCS", 1);
-            insertDataCommand.Parameters.AddWithValue("@CJMCU", 1);
-            insertDataCommand.Parameters.AddWithValue("@MQ", 1);
-            insertDataCommand.Parameters.AddWithValue("@HCHO", 1);
+            insertDataCommand.Parameters.AddWithValue("@Humidity", humidity);
+            insertDataCommand.Parameters.AddWithValue("@Temperature", temperature);
+            insertDataCommand.Parameters.AddWithValue("@PM1_0", pm1_0);
+            insertDataCommand.Parameters.AddWithValue("@PM2_5", pm2_5);
+            insertDataCommand.Parameters.AddWithValue("@PM10", pm10);
+            insertDataCommand.Parameters.AddWithValue("@PID", pid);
+            insertDataCommand.Parameters.AddWithValue("@MiCS", mics);
+            insertDataCommand.Parameters.AddWithValue("@CJMCU", cjmcu);
+            insertDataCommand.Parameters.AddWithValue("@MQ", mq);
+            insertDataCommand.Parameters.AddWithValue("@HCHO", hcho);
             insertDataCommand.ExecuteNonQuery();
         }
 

@@ -135,20 +135,35 @@ namespace WPF_LiveChart_MVVM.ViewModel
             _dataCount++;
         }
 
-        public void UpdataGrpah()
+        public void UpdataGrpah(bool state)
         {
-            _plotHumidityModel.InvalidatePlot(true);
-            _plotTemperatureModel.InvalidatePlot(true);
-            _plotPm1_0Model.InvalidatePlot(true);
-            _plotPm2_5Model.InvalidatePlot(true);
-            _plotPm10Model.InvalidatePlot(true);
-            _plotPidModel.InvalidatePlot(true);
-            _plotMicsModel.InvalidatePlot(true);
-            _plotCjmcuModel.InvalidatePlot(true);
-            _plotMqModel.InvalidatePlot(true);
-            _plotHchoModel.InvalidatePlot(true);
+            _plotHumidityModel.InvalidatePlot(state);
+            _plotTemperatureModel.InvalidatePlot(state);
+            _plotPm1_0Model.InvalidatePlot(state);
+            _plotPm2_5Model.InvalidatePlot(state);
+            _plotPm10Model.InvalidatePlot(state);
+            _plotPidModel.InvalidatePlot(state);
+            _plotMicsModel.InvalidatePlot(state);
+            _plotCjmcuModel.InvalidatePlot(state);
+            _plotMqModel.InvalidatePlot(state);
+            _plotHchoModel.InvalidatePlot(state);
         }
 
-       
+        public void ClearGraph()
+        {
+            _dataCount = 0;
+            lineHumidty.Points.Clear();
+            lineTemperature.Points.Clear();
+            linePm1_0.Points.Clear();
+            linePm2_5.Points.Clear();
+            linePm10.Points.Clear();
+            linePid.Points.Clear();
+            lineMics.Points.Clear();
+            lineCjmcu.Points.Clear();
+            lineMq.Points.Clear();
+            lineHcho.Points.Clear();
+            UpdataGrpah(true);
+        }
+
     }
 }

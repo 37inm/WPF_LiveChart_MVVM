@@ -28,6 +28,40 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
+        private string _mysqlContent;
+        public string MysqlContent
+        {
+            get { return _mysqlContent; }
+            set
+            {
+                _mysqlContent = value;
+                OnPropertyChanged(nameof(MysqlContent));
+            }
+        }
+
+        private string _liveContent;
+        public string LiveContent
+        {
+            get { return _liveContent; }
+            set
+            {
+                _liveContent = value;
+                OnPropertyChanged(nameof(LiveContent));
+            }
+        }
+
+
+        private bool _availableMysql;
+        public bool AvailableMysql
+        {
+            get { return _availableMysql; }
+            set
+            {
+                _availableMysql = value;
+                OnPropertyChanged(nameof(AvailableMysql));
+            }
+        }
+
         private bool _serialState;
         public bool SerialState
         {
@@ -39,47 +73,46 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
-        private bool _availableMysql;
-        public bool AvailableMysql
-        {
-            get { return _availableMysql; }
-            set 
-            {
-                _availableMysql = value;
-                OnPropertyChanged(nameof(AvailableMysql));
-            }
-        }
-
-        private string _mysqlContent;
-        public string MysqlContent
-        {
-            get { return _mysqlContent; }
-            set {
-                _mysqlContent = value;
-                OnPropertyChanged(nameof(MysqlContent));
-            }
-        }
-
-        public bool _mysqlState;
+        private bool _mysqlState;
         public bool MysqlState
         {
             get { return _mysqlState; }
-            set { 
+            set
+            {
                 _mysqlState = value;
                 OnPropertyChanged(nameof(MysqlState));
             }
         }
 
-
-        private ObservableCollection<string> _serialPorts;
-        public ObservableCollection<string> SerialPorts
+        private bool _toggleState;
+        public bool ToggleState
         {
-            get { return _serialPorts; }
+            get { return _toggleState; }
             set
             {
-                _serialPorts = value;
+                _toggleState = value;
+                OnPropertyChanged(nameof(ToggleState));
             }
         }
+
+        private bool _liveState;
+        public bool LiveState
+        {
+            get { return _liveState; }
+            set
+            {
+                _liveState = value;
+                OnPropertyChanged(nameof(LiveState));
+            }
+        }
+
+
+
+
+
+        public ObservableCollection<string> SerialPorts { get; set; }
+
+        public ObservableCollection<int> SerialBaudRate { get; set; }
 
         private string _selectedSerialPort;
         public string SelectedSerialPort
@@ -91,8 +124,6 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 OnPropertyChanged(nameof(SelectedSerialPort));
             }
         }
-
-        public ObservableCollection<int> SerialBaudRate { get; set; }
 
         private int _selectedSerialBaudRate;
         public int SelectedSerialBaudRate
@@ -142,6 +173,27 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
+        private RelayCommand _stopCommand;
+        public RelayCommand StopCommand
+        {
+            get { return _stopCommand; }
+            set
+            {
+                _stopCommand = value;
+                OnPropertyChanged(nameof(StopCommand));
+            }
+        }
+
+        private RelayCommand _claerCommand;
+        public RelayCommand ClearCommand
+        {
+            get { return _claerCommand; }
+            set
+            {
+                _claerCommand = value;
+                OnPropertyChanged(nameof(ClearCommand));
+            }
+        }
 
 
 
@@ -154,43 +206,58 @@ namespace WPF_LiveChart_MVVM.ViewModel
             SerialCommand = new RelayCommand(OpenSerial);
             MysqlCommand = new RelayCommand(OpenDatabase);
             AvailableMysqlCommand = new RelayCommand(ToggleMysql);
+            StopCommand = new RelayCommand(ToggleLive);
+            ClearCommand = new RelayCommand(GrahpClear);
 
             _oxyPlotViewModel = oxyPlotView;
             _dataModel = new DataModel();
 
+
             SerialContent = "Open";
             MysqlContent = "Conenct";
-            MysqlState = true;
+            LiveContent = "Stop";
             SerialState = true;
+            MysqlState = false;
             AvailableMysql = false;
-
-
+            ToggleState = true;
+            LiveState = true;
         }
 
 
 
         private void OpenSerial()
         {
-            _serialCommunication = new SerialPort();
-
-            try
+            if (AvailableMysql && !MysqlState)
             {
-                _serialCommunication.PortName = SelectedSerialPort;
-                _serialCommunication.BaudRate = SelectedSerialBaudRate;
-                _serialCommunication.DataReceived += SerialPort_DataReceived;
-                _serialCommunication.Open();
-                if (_serialCommunication.IsOpen)
+                MessageBox.Show("데이터베이스를 연결해주세요!");
+                return;
+            }
+            else
+            {
+                _serialCommunication = new SerialPort();
+
+                try
                 {
-                    SerialCommand = new RelayCommand(CloseSerial);
-                    SerialContent = "Close";
-                    SerialState = false;
-                    AvailableMysql = false;
+                    _serialCommunication.PortName = SelectedSerialPort;
+                    _serialCommunication.BaudRate = SelectedSerialBaudRate;
+                    _serialCommunication.DataReceived += SerialPort_DataReceived;
+                    _serialCommunication.Open();
+                    if (_serialCommunication.IsOpen)
+                    {
+                        SerialCommand = new RelayCommand(CloseSerial);
+                        SerialContent = "Close";
+                        SerialState = false;
+                        ToggleState = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+
+
+
 
         }
 
@@ -201,13 +268,17 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 _serialCommunication.DataReceived -= SerialPort_DataReceived;
                 _serialCommunication.DiscardInBuffer();
                 _serialCommunication.Close();
-                //_database.CloseDatabase();
+                if (MysqlState)
+                {
+                    CloseDatabase();
+                }
+
                 if (!_serialCommunication.IsOpen)
                 {
                     SerialCommand = new RelayCommand(OpenSerial);
                     SerialContent = "Open";
                     SerialState = true;
-                    AvailableMysql = false;
+                    ToggleState = true;
                 }
 
             }
@@ -219,36 +290,52 @@ namespace WPF_LiveChart_MVVM.ViewModel
 
         public void OpenDatabase()
         {
-            MysqlState = !_database.OpenDatabase("root", "8546elefjq", "127.0.0.1", "Hello");
-            if(!MysqlState)
+            MysqlState = _database.OpenDatabase("root", "8546elefjq", "127.0.0.1", "Hello");
+            ToggleState = !MysqlState;
+            if (MysqlState)
             {
                 MysqlCommand = new RelayCommand(CloseDatabase);
                 MysqlContent = "Close";
-                AvailableMysql = false;
             }
         }
 
         private void CloseDatabase()
         {
-            MysqlState = !_database.CloseDatabase();
-            if (MysqlState)
+            MysqlState = _database.CloseDatabase();
+            ToggleState = !MysqlState;
+            if (!MysqlState)
             {
                 MysqlCommand = new RelayCommand(OpenDatabase);
                 MysqlContent = "Connect";
-                AvailableMysql = true;
             }
         }
 
         public void ToggleMysql()
         {
-            if(AvailableMysql)
+            AvailableMysql = !AvailableMysql;
+        }
+        private void ToggleLive()
+        {
+            if (LiveState)
             {
-                AvailableMysql = false;
-            } else
+                LiveState = !LiveState;
+                LiveContent = "Stop";
+            }
+            else
             {
-                AvailableMysql = true;
+                LiveState = !LiveState;
+                LiveContent = "Live";
             }
         }
+        private void GrahpClear()
+        {
+            _oxyPlotViewModel.ClearGraph();
+        }
+
+
+
+
+
 
         public void SerialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
@@ -282,11 +369,27 @@ namespace WPF_LiveChart_MVVM.ViewModel
                     _oxyPlotViewModel.GraphHcho(_dataModel.Hcho);
 
                     _oxyPlotViewModel.UpdateCount();
-                    _oxyPlotViewModel.UpdataGrpah();
+                    _oxyPlotViewModel.UpdataGrpah(LiveState);
+
+                    if (MysqlState)
+                    {
+                        _database.AddData(
+                            _dataModel.Humidity,
+                            _dataModel.Temperature,
+                            _dataModel.Pm1_0,
+                            _dataModel.Pm2_5,
+                            _dataModel.Pm10,
+                            _dataModel.Pid,
+                            _dataModel.Mics,
+                            _dataModel.Cjmcu,
+                            _dataModel.Mq,
+                            _dataModel.Hcho
+                            );
+                    }
 
                 }
 
-                //_database.AddData();
+
 
             }
             catch (Exception ex)
@@ -294,8 +397,6 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 MessageBox.Show(ex.Message);
             }
         }
-
-        
 
         private void LoadSerialPorts()
         {
