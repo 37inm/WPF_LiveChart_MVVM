@@ -118,6 +118,7 @@
     <Compile Include="ViewModel\SerialViewModel.cs" />
     <Compile Include="ViewModel\TimerViewModel.cs" />
     <Compile Include="ViewModel\ToggleViewModel.cs" />
+    <Compile Include="ViewModel\UdpViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -193,8 +193,10 @@
                     <Label/>
                     <Label x:Name="lblPort" Content="Port" />
                     <ComboBox ItemsSource="{Binding SerialViewModel.SerialPorts}" SelectedItem="{Binding SerialViewModel.SelectedSerialPort}" IsEnabled="{Binding SerialViewModel.SerialState}" Background="#FFF3EDED" Margin="0" BorderThickness="2,2,1,1" />
+                    <TextBox Text="{Binding UdpViewModel.Ip}" BorderThickness="2,2,1,1" />
                     <Label x:Name="lblBaud" Content="Baud" />
                     <ComboBox ItemsSource="{Binding SerialViewModel.SerialBaudRate}" SelectedItem="{Binding SerialViewModel.SelectedSerialBaudRate}" IsEnabled="{Binding SerialViewModel.SerialState}"  BorderThickness="2,2,1,1" />
+                    <TextBox Text="{Binding UdpViewModel.Port}" BorderThickness="2,2,1,1" />
                     <Label/>
                     <Button Command="{Binding SerialViewModel.SerialCommand}" Content="{Binding SerialViewModel.SerialContent}" Height="40" BorderThickness="1,1,2,2"/>
                     <Label/>
@@ -206,13 +208,13 @@
                 <Border BorderThickness="0,1" BorderBrush="Black" Grid.Row="2" >
                     <StackPanel IsEnabled="{Binding DataBaseViewModel.AvailableMysql}" Margin="10">
                         <Label Content="Server"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="127.0.0.1" BorderThickness="2,2,1,1"/>
+                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.Server}" BorderThickness="2,2,1,1"/>
                         <Label Content="Database"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="Hello" BorderThickness="2,2,1,1"/>
+                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.DatabaseServer}" BorderThickness="2,2,1,1"/>
                         <Label Content="Name"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="root" BorderThickness="2,2,1,1"/>
+                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.UserName}" BorderThickness="2,2,1,1"/>
                         <Label Content="Password"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="8546elefjq" BorderThickness="2,2,1,1"/>
+                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.Password}" BorderThickness="2,2,1,1"/>
                         <Label/>
                         <Button Command="{Binding DataBaseViewModel.MysqlCommand}" IsEnabled="{Binding SerialViewModel.SerialState}" Content="{Binding DataBaseViewModel.MysqlContent}" Height="40" BorderThickness="1,1,2,2"/>
                     </StackPanel>

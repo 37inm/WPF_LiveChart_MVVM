@@ -23,6 +23,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 OnPropertyChanged(nameof(AvailableMysql));
             }
         }
+
         private bool _mysqlState;
         public bool MysqlState
         {
@@ -45,6 +46,50 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
+
+        private string _server;
+        public string Server
+        {
+            get { return _server; }
+            set 
+            { 
+                _server = value;
+                OnPropertyChanged(nameof(Server));
+            }
+        }
+
+        private string _databaseServer;
+        public string DatabaseServer
+        {
+            get { return _databaseServer; }
+            set
+            {
+                _databaseServer = value;
+                OnPropertyChanged(nameof(DatabaseServer));
+            }
+        }
+
+        private string _userName;
+        public string UserName
+        {
+            get { return _userName; }
+            set
+            {
+                _userName = value;
+                OnPropertyChanged(nameof(UserName));
+            }
+        }
+
+        private string _password;
+        public string Password
+        {
+            get { return _password; }
+            set
+            {
+                _password = value;
+                OnPropertyChanged(nameof(Password));
+            }
+        }
 
         private string _mysqlContent;
         public string MysqlContent
@@ -90,9 +135,12 @@ namespace WPF_LiveChart_MVVM.ViewModel
             MysqlContent = "Connect";
             AvailableMysqlCommand = new RelayCommand(ToggleMysql);
             MysqlCommand = new RelayCommand(OpenDatabase);
+
+            Server = "127.0.0.1";
+            DatabaseServer = "Hello";
+            UserName = "root";
+            Password = "8546elefjq";
         }
-
-
 
         public void ToggleMysql()
         {
@@ -102,7 +150,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
         public void OpenDatabase()
         {
             _database = new DataBaseService();
-            MysqlState = _database.OpenDatabase("root", "8546elefjq", "127.0.0.1", "Hello");
+            MysqlState = _database.OpenDatabase(UserName, Password, Server, DatabaseServer);
             MysqlToggle = !MysqlState;
             if(MysqlState)
             {

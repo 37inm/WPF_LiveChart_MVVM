@@ -18,6 +18,16 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 OnPropertyChanged(nameof(SerialViewModel));
             }
         }
+        private UdpViewModel _udpViewModel;
+        public UdpViewModel UdpViewModel
+        {
+            get { return _udpViewModel; }
+            set
+            {
+                _udpViewModel = value;
+                OnPropertyChanged(nameof(UdpViewModel));
+            }
+        }
 
         private OxyPlotViewModel _oxyPlotViewModel; 
         public OxyPlotViewModel OxyPlotViewModel
@@ -116,10 +126,18 @@ namespace WPF_LiveChart_MVVM.ViewModel
             SerialViewModel = null;
             SerialToggle = false;
             UdpToggle = true;
+            ToggleViewModel = new ToggleViewModel();
+            OxyPlotViewModel = new OxyPlotViewModel();
+            DataBaseViewModel = new DataBaseViewModel();
+            CsvViewModel = new CsvViewModel();
+            TimerViewModel = new TimerViewModel();
+            UdpViewModel = new UdpViewModel(OxyPlotViewModel, ToggleViewModel, DataBaseViewModel, CsvViewModel, TimerViewModel);
+
         }
 
         private void ConnectSerial()
         {
+            UdpViewModel = null;
             SerialToggle = true;
             UdpToggle = false;
             ToggleViewModel = new ToggleViewModel();

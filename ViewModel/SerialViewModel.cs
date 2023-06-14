@@ -91,8 +91,6 @@ namespace WPF_LiveChart_MVVM.ViewModel
 
             SerialCommand = new RelayCommand(OpenSerial);
 
-
-
             _oxyPlotViewModel = oxyPlotView;
             _toggleViewModel = toggleViewModel;
             _databaseViewModel = dataBaseViewModel;
@@ -246,7 +244,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

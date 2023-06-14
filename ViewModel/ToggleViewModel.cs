@@ -31,6 +31,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
+   
+
         public ToggleViewModel()
         {
             MainToggle = true;
