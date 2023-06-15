@@ -179,6 +179,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -190,7 +191,6 @@
                 </Grid>
                 <StackPanel Margin="10" Grid.Row="1">
                     <TextBlock Text="{Binding TimerViewModel.TimerContent}" TextAlignment="Center" IsEnabled="False" FontWeight="Bold"/>
-                    <Label/>
                     <Label Content="Port" Visibility="{Binding SerialVisibility}" />
                     <Label Content="Ip" Visibility="{Binding UdpVisibility}" />
                     <ComboBox ItemsSource="{Binding SerialViewModel.SerialPorts}" SelectedItem="{Binding SerialViewModel.SelectedSerialPort}" IsEnabled="{Binding SerialViewModel.SerialState}" Visibility="{Binding SerialVisibility}" Background="#FFF3EDED" Margin="0" BorderThickness="2,2,1,1" />
@@ -202,13 +202,35 @@
                     <Label/>
                     <Button Command="{Binding SerialViewModel.SerialCommand}" Content="{Binding SerialViewModel.SerialContent}" Visibility="{Binding SerialVisibility}" Height="40" BorderThickness="1,1,2,2"/>
                     <Button Command="{Binding UdpViewModel.UdpCommand}" Content="{Binding UdpViewModel.UdpContent}" Visibility="{Binding UdpVisibility}" Height="40" BorderThickness="1,1,2,2"/>
-                    <Label/>
-                    <CheckBox Command="{Binding CsvViewModel.CsvCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}" Content="Use CSV" BorderThickness="2,2,1,1"/>
-                    <Label/>
-                    <CheckBox Command="{Binding DataBaseViewModel.AvailableMysqlCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}" Content="Use MySQL"  BorderThickness="2,2,1,1"/>
                 </StackPanel>
+                <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="Black">
+                    <StackPanel Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox IsEnabled="False" IsChecked="{Binding CsvViewModel.CsvState}" BorderThickness="2,2,1,1"/>
+                            <Label Grid.Column="1"/>
+                            <Button Command="{Binding CsvViewModel.CsvCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}" Grid.Column="2" Content="CSV" BorderThickness="1,1,2,2"/>
+                        </Grid>
+                        <Label/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="6*"/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox IsEnabled="False" IsChecked="{Binding DataBaseViewModel.MysqlState}"  BorderThickness="2,2,1,1"/>
+                            <Label Grid.Column="1"/>
+                            <Button Command="{Binding DataBaseViewModel.AvailableMysqlCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}"  Grid.Column="2" Content="Mysql" BorderThickness="1,1,2,2"/>
+                        </Grid>
 
-                <Border BorderThickness="0,1" BorderBrush="Black" Grid.Row="2" >
+                    </StackPanel>
+                </Border>
+
+                <Border BorderThickness="0,1" BorderBrush="Black" Grid.Row="3" >
                     <StackPanel IsEnabled="{Binding DataBaseViewModel.AvailableMysql}" Margin="10">
                         <Label Content="Server"/>
                         <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.Server}" BorderThickness="2,2,1,1"/>
@@ -222,11 +244,11 @@
                         <Button Command="{Binding DataBaseViewModel.MysqlCommand}" IsEnabled="{Binding SerialViewModel.SerialState}" Content="{Binding DataBaseViewModel.MysqlContent}" Height="40" BorderThickness="1,1,2,2"/>
                     </StackPanel>
                 </Border>
-                <StackPanel Grid.Row="3" Margin="10">
+                <StackPanel Grid.Row="4" Margin="10">
                     <Label Content="Graph" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-                    <Button Command="{Binding OxyPlotViewModel.StopCommand}" Content="{Binding OxyPlotViewModel.LiveContent}" Height="35" BorderThickness="1,1,2,2"/>
+                    <Button Command="{Binding OxyPlotViewModel.StopCommand}" Content="{Binding OxyPlotViewModel.LiveContent}" Height="30" BorderThickness="1,1,2,2"/>
                     <Label/>
-                    <Button Command="{Binding OxyPlotViewModel.ClearCommand}" Content="Clear" Height="35" BorderThickness="1,1,2,2"/>
+                    <Button Command="{Binding OxyPlotViewModel.ClearCommand}" Content="Clear" Height="30" BorderThickness="1,1,2,2"/>
                     <Label/>
                 </StackPanel>
             </Grid>
