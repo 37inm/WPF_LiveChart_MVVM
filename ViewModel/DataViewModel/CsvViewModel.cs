@@ -68,5 +68,10 @@ namespace WPF_LiveChart_MVVM.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public void Close()
+        {
+            CsvState = false;
+            _csv = null;
+        }
     }
 }

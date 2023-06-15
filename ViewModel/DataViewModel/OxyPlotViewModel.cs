@@ -54,7 +54,6 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
-
         public PlotModel _plotHumidityModel { get; set;}
         public PlotModel _plotTemperatureModel { get; set; }
         public PlotModel _plotPm1_0Model { get; set; }

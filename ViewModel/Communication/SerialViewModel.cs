@@ -15,7 +15,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
         private OxyPlotViewModel _oxyPlotViewModel;
         private ToggleViewModel _toggleViewModel;
         private DataBaseViewModel _databaseViewModel;
-        private CsvViewModel _csvViewMdoel;
+        private CsvViewModel _csvViewModel;
         private TimerViewModel _timerViewModel;
         private DisplayDataViewModel _displayDataViewModel;
         private DataModel _dataModel;
@@ -93,7 +93,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
             _oxyPlotViewModel = oxyPlotView;
             _toggleViewModel = toggleViewModel;
             _databaseViewModel = dataBaseViewModel;
-            _csvViewMdoel = csvViewModel;
+            _csvViewModel = csvViewModel;
             _timerViewModel = timerViewModel;
             _displayDataViewModel = displayDataViewModel;
 
@@ -153,7 +153,10 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 {
                     _databaseViewModel.CloseDatabase();
                 }
-
+                if(_csvViewModel.CsvState)
+                {
+                    _csvViewModel.Close();
+                }
                 if (!_serialCommunication.IsOpen)
                 {
                     SerialCommand = new RelayCommand(OpenSerial);
@@ -235,9 +238,9 @@ namespace WPF_LiveChart_MVVM.ViewModel
                             );
 
                     }
-                    if (_csvViewMdoel.CsvState)
+                    if (_csvViewModel.CsvState)
                     {
-                        _csvViewMdoel._csv.AddCsv(
+                        _csvViewModel._csv.AddCsv(
                             _timerViewModel.TimerContent,
                             _dataModel.Humidity,
                             _dataModel.Temperature,
