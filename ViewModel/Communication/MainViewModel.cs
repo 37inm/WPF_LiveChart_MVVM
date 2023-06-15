@@ -83,6 +83,17 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
+        private DisplayDataViewModel _displayDataViewModel;
+        public DisplayDataViewModel DisplayDataViewModel
+        {
+            get { return _displayDataViewModel; }
+            set
+            {
+                _displayDataViewModel = value;
+                OnPropertyChanged(nameof(DisplayDataViewModel));
+            }
+        }
+
         public RelayCommand SerialCommand { get; set; }
         public RelayCommand UdpCommand { get; set; }
 
@@ -152,7 +163,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
             DataBaseViewModel = new DataBaseViewModel();
             CsvViewModel = new CsvViewModel();
             TimerViewModel = new TimerViewModel();
-            UdpViewModel = new UdpViewModel(OxyPlotViewModel, ToggleViewModel, DataBaseViewModel, CsvViewModel, TimerViewModel);
+            DisplayDataViewModel = new DisplayDataViewModel();
+            UdpViewModel = new UdpViewModel(OxyPlotViewModel, ToggleViewModel, DataBaseViewModel, CsvViewModel, TimerViewModel, DisplayDataViewModel);
 
         }
 
@@ -168,7 +180,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
             DataBaseViewModel = new DataBaseViewModel();
             CsvViewModel = new CsvViewModel();
             TimerViewModel = new TimerViewModel();
-            SerialViewModel = new SerialViewModel(OxyPlotViewModel, ToggleViewModel, DataBaseViewModel, CsvViewModel, TimerViewModel);
+            DisplayDataViewModel = new DisplayDataViewModel();
+            SerialViewModel = new SerialViewModel(OxyPlotViewModel, ToggleViewModel, DataBaseViewModel, CsvViewModel, TimerViewModel, DisplayDataViewModel);
         }
 
 

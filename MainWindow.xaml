@@ -38,7 +38,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="Humidity" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center" HorizontalAlignment="Center" Width="205" Height="44" VerticalAlignment="Bottom"/>
 
-                    <TextBlock  Margin="0,0,10,0" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1" Height="24" VerticalAlignment="Center" HorizontalAlignment="Right" Width="185"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Humidity}" Margin="0,0,10,0" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1" Height="24" VerticalAlignment="Center" HorizontalAlignment="Right" Width="185"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotHumidityModel}" Grid.Row="2" Height="221" VerticalAlignment="Center" HorizontalAlignment="Right" Width="205" />
 
@@ -53,7 +53,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="PM 1.0" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
 
-                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Pm1_0}" Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotPm1_0Model}" Grid.Row="2" BorderThickness="0" />
 
@@ -68,7 +68,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="PM 2.5" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
 
-                    <TextBlock  Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Pm2_5}" Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotPm2_5Model}" Grid.Row="2" />
                 </Grid>
@@ -82,7 +82,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="PM 10" FontWeight="Bold" FontSize="16"  HorizontalContentAlignment="Center"/>
 
-                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Pm10}" Margin="10" TextWrapping="Wrap" FontSize="16"  TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotPm10Model}" Grid.Row="2" />
                 </Grid>
@@ -96,7 +96,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="PID" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
 
-                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Pid}" Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotPidModel}" Grid.Row="2" />
                 </Grid>
@@ -110,7 +110,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="Temperature" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
 
-                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Temperature}" Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotTemperatureModel}" Grid.Row="2" />
                 </Grid>
@@ -124,7 +124,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="MiCS" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
 
-                    <TextBlock Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Mics}" Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotMicsModel}" Grid.Row="2" />
                 </Grid>
@@ -138,7 +138,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="CJMCU" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
 
-                    <TextBlock  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Cjmcu}" Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotCjmcuModel}" Grid.Row="2" />
                 </Grid>
@@ -152,7 +152,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="MQ" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
 
-                    <TextBlock  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Mq}" Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotMqModel}" Grid.Row="2" />
                 </Grid>
@@ -166,7 +166,7 @@
                     </Grid.RowDefinitions>
                     <Label Content="HCHO" FontWeight="Bold" FontSize="16" HorizontalContentAlignment="Center" />
 
-                    <TextBlock  Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
+                    <TextBlock Text="{Binding DisplayDataViewModel.Hcho}" Margin="10" TextWrapping="Wrap" FontSize="16" TextAlignment="Center" Grid.Row="1"/>
 
                     <oxy:PlotView Model="{Binding OxyPlotViewModel._plotHchoModel}" Grid.Row="2" />
                 </Grid>

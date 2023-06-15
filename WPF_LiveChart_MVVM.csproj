@@ -111,14 +111,15 @@
     <Compile Include="Service\CsvService.cs" />
     <Compile Include="Service\DataBaseService.cs" />
     <Compile Include="ViewModel\Command\RelayCommand.cs" />
-    <Compile Include="ViewModel\CsvViewModel.cs" />
-    <Compile Include="ViewModel\DataBaseViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\OxyPlotViewModel.cs" />
-    <Compile Include="ViewModel\SerialViewModel.cs" />
-    <Compile Include="ViewModel\TimerViewModel.cs" />
-    <Compile Include="ViewModel\ToggleViewModel.cs" />
-    <Compile Include="ViewModel\UdpViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\CsvViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\DataBaseViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\DisplayDataViewModel.cs" />
+    <Compile Include="ViewModel\Communication\MainViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\OxyPlotViewModel.cs" />
+    <Compile Include="ViewModel\Communication\SerialViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\TimerViewModel.cs" />
+    <Compile Include="ViewModel\DataViewModel\ToggleViewModel.cs" />
+    <Compile Include="ViewModel\Communication\UdpViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

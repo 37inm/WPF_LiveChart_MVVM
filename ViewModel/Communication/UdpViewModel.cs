@@ -17,6 +17,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
         private DataBaseViewModel _databaseViewModel;
         private CsvViewModel _csvViewMdoel;
         private TimerViewModel _timerViewModel;
+        private DisplayDataViewModel _displayDataViewModel;
         private DataModel _dataModel;
 
         private string _ip;
@@ -75,15 +76,16 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
-        public UdpViewModel(OxyPlotViewModel oxyPlotView, ToggleViewModel toggleViewModel, DataBaseViewModel dataBaseViewModel, CsvViewModel csvViewModel, TimerViewModel timerViewModel)
+        public UdpViewModel(OxyPlotViewModel oxyPlotView, ToggleViewModel toggleViewModel, DataBaseViewModel dataBaseViewModel, CsvViewModel csvViewModel, TimerViewModel timerViewModel, DisplayDataViewModel displayDataViewModel)
         {
+            UdpCommand = new RelayCommand(OpenUdp);
+
             _oxyPlotViewModel = oxyPlotView;
             _toggleViewModel = toggleViewModel;
             _databaseViewModel = dataBaseViewModel;
             _csvViewMdoel = csvViewModel;
             _timerViewModel = timerViewModel;
-
-            UdpCommand = new RelayCommand(OpenUdp);
+            _displayDataViewModel = displayDataViewModel;
 
             _dataModel = new DataModel();
 
@@ -171,6 +173,17 @@ namespace WPF_LiveChart_MVVM.ViewModel
                         _dataModel.Cjmcu = double.Parse(splitData[7]);
                         _dataModel.Mq = double.Parse(splitData[8]);
                         _dataModel.Hcho = double.Parse(splitData[9]);
+
+                        _displayDataViewModel.Humidity = _dataModel.Humidity;
+                        _displayDataViewModel.Temperature = _dataModel.Temperature;
+                        _displayDataViewModel.Pm1_0 = _dataModel.Pm1_0;
+                        _displayDataViewModel.Pm2_5 = _dataModel.Pm2_5;
+                        _displayDataViewModel.Pm10 = _dataModel.Pm10;
+                        _displayDataViewModel.Pid = _dataModel.Pid;
+                        _displayDataViewModel.Mics = _dataModel.Mics;
+                        _displayDataViewModel.Cjmcu = _dataModel.Cjmcu;
+                        _displayDataViewModel.Mq = _dataModel.Mq;
+                        _displayDataViewModel.Hcho = _dataModel.Hcho;
 
                         _oxyPlotViewModel.GraphHumidity(_dataModel.Humidity);
                         _oxyPlotViewModel.GraphTemperature(_dataModel.Temperature);
