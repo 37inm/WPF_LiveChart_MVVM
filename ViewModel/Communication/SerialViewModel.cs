@@ -180,6 +180,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 bool bl = double.TryParse(splitData[0], out double result);
                 if ((double.Parse(splitData[3]) < 1000) && bl)
                 {
+                    SerialContent = "Close";
+
                     _dataModel.Humidity = double.Parse(splitData[0]);
                     _dataModel.Temperature = double.Parse(splitData[1]);
                     _dataModel.Pm1_0 = double.Parse(splitData[2]);
@@ -250,6 +252,9 @@ namespace WPF_LiveChart_MVVM.ViewModel
                             );
                     }
 
+                } else
+                {
+                    SerialContent = "형식 오류";
                 }
 
             }

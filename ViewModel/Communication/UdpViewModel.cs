@@ -163,6 +163,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
                     bool bl = double.TryParse(splitData[0], out double result);
                     if ((double.Parse(splitData[3]) < 1000) && bl)
                     {
+                        UdpContent = "Close";
+
                         _dataModel.Humidity = double.Parse(splitData[0]);
                         _dataModel.Temperature = double.Parse(splitData[1]);
                         _dataModel.Pm1_0 = double.Parse(splitData[2]);
@@ -232,6 +234,9 @@ namespace WPF_LiveChart_MVVM.ViewModel
                                 _dataModel.Hcho
                                 );
                         }
+                    } else
+                    {
+                        UdpContent = "형식 오류";
                     }
                     
                     _udpClient.BeginReceive(ReceiveCallback, null); // 계속해서 데이터 수신 대기
