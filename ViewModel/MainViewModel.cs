@@ -1,6 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using WPF_LiveChart_MVVM.Model;
+﻿using System.ComponentModel;
+using System.Windows;
 using WPF_LiveChart_MVVM.ViewModel.Command;
 
 namespace WPF_LiveChart_MVVM.ViewModel
@@ -87,7 +86,27 @@ namespace WPF_LiveChart_MVVM.ViewModel
         public RelayCommand SerialCommand { get; set; }
         public RelayCommand UdpCommand { get; set; }
 
-        
+        private Visibility _serialVisibility;
+        public Visibility SerialVisibility
+        {
+            get { return _serialVisibility; }
+            set
+            {
+                _serialVisibility = value;
+                OnPropertyChanged(nameof(SerialVisibility));
+            }
+        }
+
+        private Visibility _udpVisibility;
+        public Visibility UdpVisibility
+        {
+            get { return _udpVisibility; }
+            set
+            {
+                _udpVisibility = value;
+                OnPropertyChanged(nameof(UdpVisibility));
+            }
+        }
 
         private bool _serialToggle;
         public bool SerialToggle
@@ -126,6 +145,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
             SerialViewModel = null;
             SerialToggle = false;
             UdpToggle = true;
+            SerialVisibility = Visibility.Collapsed;
+            UdpVisibility = Visibility.Visible;
             ToggleViewModel = new ToggleViewModel();
             OxyPlotViewModel = new OxyPlotViewModel();
             DataBaseViewModel = new DataBaseViewModel();
@@ -140,6 +161,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
             UdpViewModel = null;
             SerialToggle = true;
             UdpToggle = false;
+            SerialVisibility = Visibility.Visible;
+            UdpVisibility = Visibility.Collapsed;
             ToggleViewModel = new ToggleViewModel();
             OxyPlotViewModel = new OxyPlotViewModel();
             DataBaseViewModel = new DataBaseViewModel();

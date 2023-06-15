@@ -30,8 +30,6 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
-
-
         private bool _serialState;
         public bool SerialState
         {

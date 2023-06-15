@@ -41,6 +41,17 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
+        private string _udpContent;
+        public string UdpContent
+        {
+            get { return _udpContent; }
+            set
+            {
+                _udpContent = value;
+                OnPropertyChanged(nameof(UdpContent));
+            }
+        }
+        
         private bool _udpState;
         public bool UdpState
         {
@@ -51,6 +62,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 OnPropertyChanged(nameof(UdpState));
             }
         }
+
 
         private RelayCommand _udpCommand;
         public RelayCommand UdpCommand
@@ -75,6 +87,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
 
             _dataModel = new DataModel();
 
+            UdpState = true;
+            UdpContent = "Open";
             Ip = "192.168.0.2";
             Port = "4210";
         }
@@ -94,11 +108,18 @@ namespace WPF_LiveChart_MVVM.ViewModel
                     byte[] data = Encoding.UTF8.GetBytes("abc");
 
                     _udpClient.Send(data, data.Length, Ip, int.Parse(Port));
-                    UdpState = true;
+                    UdpState = false;
+                    
                     _udpClient.BeginReceive(ReceiveCallback, null);
 
                     MessageBox.Show(Ip + ", " + Port + " Connect !");
                     _timerViewModel.Start();
+
+                    UdpContent = "Close";
+                    UdpCommand = new RelayCommand(CloseUdp);
+
+                    _toggleViewModel.MainToggle = false;
+                    _toggleViewModel.SubToggle = false;
 
                 }
                 catch (Exception ex)
@@ -111,17 +132,25 @@ namespace WPF_LiveChart_MVVM.ViewModel
 
         public void CloseUdp()
         {
-            UdpState = false;
+            UdpState = true;
+            _udpClient.Close();
             _timerViewModel.Stop();
+            
             if (_databaseViewModel.MysqlState)
             {
                 _databaseViewModel.CloseDatabase();
             }
+
+            UdpCommand = new RelayCommand(OpenUdp);
+            UdpContent = "Open";
+
+            _toggleViewModel.MainToggle = true;
+            _toggleViewModel.SubToggle = true;
         }
 
         private void ReceiveCallback(IAsyncResult ar)
         {
-            if (UdpState)
+            if (!UdpState)
             {
                 try
                 {
