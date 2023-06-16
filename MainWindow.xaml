@@ -7,11 +7,11 @@
         xmlns:local="clr-namespace:WPF_LiveChart_MVVM"
         xmlns:ViewModel="clr-namespace:WPF_LiveChart_MVVM.ViewModel" x:Class="WPF_LiveChart_MVVM.MainWindow"
         mc:Ignorable="d"
-        Title="sensor values graph_230608" Height="698.001" Width="1291.615">
+        Title="LiveChart" Height="698.001" Width="1291.615">
     <Window.DataContext>
         <ViewModel:MainViewModel/>
     </Window.DataContext>
-    <Grid Background="#FFF1F1F1" >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"/>
             <ColumnDefinition/>
