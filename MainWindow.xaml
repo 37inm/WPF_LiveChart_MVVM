@@ -241,7 +241,7 @@
                         <Label Content="Password"/>
                         <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.Password}" BorderThickness="2,2,1,1"/>
                         <Label/>
-                        <Button Command="{Binding DataBaseViewModel.MysqlCommand}" IsEnabled="{Binding SerialViewModel.SerialState}" Content="{Binding DataBaseViewModel.MysqlContent}" Height="40" BorderThickness="1,1,2,2"/>
+                        <Button Command="{Binding DataBaseViewModel.MysqlCommand}" IsEnabled="{Binding ToggleViewModel.MainToggle}" Content="{Binding DataBaseViewModel.MysqlContent}" Height="40" BorderThickness="1,1,2,2"/>
                     </StackPanel>
                 </Border>
                 <StackPanel Grid.Row="4" Margin="10">
