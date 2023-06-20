@@ -70,7 +70,6 @@ namespace WPF_LiveChart_MVVM.Service
             insertDataCommand.ExecuteNonQuery();
         }
 
-
         public bool CloseDatabase()
         {
             try

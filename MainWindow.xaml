@@ -7,17 +7,31 @@
         xmlns:local="clr-namespace:WPF_LiveChart_MVVM"
         xmlns:ViewModel="clr-namespace:WPF_LiveChart_MVVM.ViewModel" x:Class="WPF_LiveChart_MVVM.MainWindow"
         mc:Ignorable="d"
-        Title="LiveChart" Height="698.001" Width="1291.615">
+        Title="LiveChart" Height="763.957" Width="1320.686">
     <Window.DataContext>
         <ViewModel:MainViewModel/>
     </Window.DataContext>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="31"/>
+            <RowDefinition Height="702*"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="8*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
-        <Grid Margin="10">
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File" Height="31" Width="35" Margin="8,0,0,0" >
+                    <MenuItem Header="RS485 Mode"/>
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />
+                    <Separator />
+                    <MenuItem Header="_Exit"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Margin="10" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -172,7 +186,7 @@
                 </Grid>
             </Border>
         </Grid>
-        <Border BorderThickness="1" Margin="10" BorderBrush="Black" Grid.Column="1">
+        <Border BorderThickness="1" Margin="10" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
