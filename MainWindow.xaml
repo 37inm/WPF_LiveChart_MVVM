@@ -21,13 +21,23 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <DockPanel>
-            <Menu DockPanel.Dock="Top">
+            <Menu DockPanel.Dock="Top" Margin="0,0,-145,0">
                 <MenuItem Header="_File" Height="31" Width="35" Margin="8,0,0,0" >
                     <MenuItem Header="RS485 Mode"/>
-                    <MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />
+                    <!--<MenuItem Header="_Open" />
+                    <MenuItem Header="_Save" />-->
                     <Separator />
                     <MenuItem Header="_Exit"/>
+                </MenuItem>
+                <MenuItem Header="Save" Height="31" Width="35" Margin="9,0,0,0">
+                    <MenuItem Header="Database"/>
+                    <Separator />
+                    <MenuItem Header="Csv File" Command="{Binding CsvViewModel.CsvCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}"/>
+                </MenuItem>
+                <MenuItem Header="Graph" Height="31" Width="45" RenderTransformOrigin="1.073,0.484">
+                    <MenuItem Header="{Binding OxyPlotViewModel.LiveContent}" Command="{Binding OxyPlotViewModel.StopCommand}"/>
+                    <Separator />
+                    <MenuItem Header="Clear" Command="{Binding OxyPlotViewModel.ClearCommand}"/>
                 </MenuItem>
             </Menu>
         </DockPanel>
@@ -190,9 +200,8 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" MinHeight="208"/>
+                    <RowDefinition Height="Auto" MinHeight="187"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid>
@@ -225,9 +234,8 @@
                                 <ColumnDefinition Width="1*"/>
                                 <ColumnDefinition Width="6*"/>
                             </Grid.ColumnDefinitions>
-                            <CheckBox IsEnabled="False" IsChecked="{Binding CsvViewModel.CsvState}" BorderThickness="2,2,1,1"/>
                             <Label Grid.Column="1"/>
-                            <Button Command="{Binding CsvViewModel.CsvCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}" Grid.Column="2" Content="CSV" BorderThickness="1,1,2,2"/>
+                            <CheckBox Content="Csv" Grid.Column="2" IsEnabled="False" IsChecked= "{Binding CsvViewModel.CsvState}"/>
                         </Grid>
                         <Label/>
                         <Grid>
@@ -240,7 +248,6 @@
                             <Label Grid.Column="1"/>
                             <Button Command="{Binding DataBaseViewModel.AvailableMysqlCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}"  Grid.Column="2" Content="Mysql" BorderThickness="1,1,2,2"/>
                         </Grid>
-
                     </StackPanel>
                 </Border>
 
@@ -258,15 +265,7 @@
                         <Button Command="{Binding DataBaseViewModel.MysqlCommand}" IsEnabled="{Binding ToggleViewModel.MainToggle}" Content="{Binding DataBaseViewModel.MysqlContent}" Height="40" BorderThickness="1,1,2,2"/>
                     </StackPanel>
                 </Border>
-                <StackPanel Grid.Row="4" Margin="10">
-                    <Label Content="Graph" HorizontalContentAlignment="Center" FontWeight="Bold"/>
-                    <Button Command="{Binding OxyPlotViewModel.StopCommand}" Content="{Binding OxyPlotViewModel.LiveContent}" Height="30" BorderThickness="1,1,2,2"/>
-                    <Label/>
-                    <Button Command="{Binding OxyPlotViewModel.ClearCommand}" Content="Clear" Height="30" BorderThickness="1,1,2,2"/>
-                    <Label/>
-                </StackPanel>
             </Grid>
-
         </Border>
     </Grid>
 </Window>
