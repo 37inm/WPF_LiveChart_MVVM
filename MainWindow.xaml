@@ -1,4 +1,4 @@
-﻿<Window
+﻿<Window ResizeMode="NoResize"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -22,19 +22,15 @@
         </Grid.ColumnDefinitions>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Margin="0,0,-145,0">
-                <MenuItem Header="_File" Height="31" Width="35" Margin="8,0,0,0" >
-                    <MenuItem Header="RS485 Mode"/>
-                    <!--<MenuItem Header="_Open" />
-                    <MenuItem Header="_Save" />-->
-                    <Separator />
-                    <MenuItem Header="_Exit"/>
+                <MenuItem Header="_Mode" Height="31" Width="40" FontSize="11" >
+                    <MenuItem Header="RS485 Mode (준비중..)"/>
                 </MenuItem>
-                <MenuItem Header="Save" Height="31" Width="35" Margin="9,0,0,0">
-                    <MenuItem Header="Database"/>
+                <MenuItem Header="_Save" Height="31" Width="40" FontSize="11">
+                    <MenuItem Header="Database" IsChecked="{Binding DataBaseViewModel.MysqlState}" Command="{Binding DataBaseViewModel.AvailableMysqlCommand}" IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" />
                     <Separator />
-                    <MenuItem Header="Csv File" Command="{Binding CsvViewModel.CsvCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}"/>
+                    <MenuItem Header="Csv File" IsChecked="{Binding CsvViewModel.CsvState}" Command="{Binding CsvViewModel.CsvCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}" />
                 </MenuItem>
-                <MenuItem Header="Graph" Height="31" Width="45" RenderTransformOrigin="1.073,0.484">
+                <MenuItem Header="_Graph" Height="31" Width="40" FontSize="11">
                     <MenuItem Header="{Binding OxyPlotViewModel.LiveContent}" Command="{Binding OxyPlotViewModel.StopCommand}"/>
                     <Separator />
                     <MenuItem Header="Clear" Command="{Binding OxyPlotViewModel.ClearCommand}"/>
@@ -200,9 +196,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto" MinHeight="208"/>
-                    <RowDefinition Height="Auto" MinHeight="187"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="491"/>
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -212,7 +206,7 @@
                     <ToggleButton Command="{Binding SerialCommand}" IsChecked="{Binding SerialToggle}" IsEnabled="{Binding ToggleViewModel.MainToggle}" Content="Serial" FontWeight="Bold" BorderThickness="1,1,2,1" />
                     <ToggleButton Command="{Binding UdpCommand}" IsChecked="{Binding UdpToggle}" IsEnabled="{Binding ToggleViewModel.MainToggle}" Content="UDP" Grid.Column="1"  FontWeight="Bold" BorderThickness="1,1,2,1"/>
                 </Grid>
-                <StackPanel Margin="10" Grid.Row="1">
+                <StackPanel Margin="10,10,10,266" Grid.Row="1">
                     <TextBlock Text="{Binding TimerViewModel.TimerContent}" TextAlignment="Center" IsEnabled="False" FontWeight="Bold"/>
                     <Label Content="Port" Visibility="{Binding SerialVisibility}" />
                     <Label Content="Ip" Visibility="{Binding UdpVisibility}" />
@@ -225,33 +219,14 @@
                     <Label/>
                     <Button Command="{Binding SerialViewModel.SerialCommand}" Content="{Binding SerialViewModel.SerialContent}" Visibility="{Binding SerialVisibility}" Height="40" BorderThickness="1,1,2,2"/>
                     <Button Command="{Binding UdpViewModel.UdpCommand}" Content="{Binding UdpViewModel.UdpContent}" Visibility="{Binding UdpVisibility}" Height="40" BorderThickness="1,1,2,2"/>
-                </StackPanel>
-                <Border Grid.Row="2" BorderThickness="0,1,0,0" BorderBrush="Black">
-                    <StackPanel Margin="10">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="6*"/>
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="1"/>
-                            <CheckBox Content="Csv" Grid.Column="2" IsEnabled="False" IsChecked= "{Binding CsvViewModel.CsvState}"/>
-                        </Grid>
-                        <Label/>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*"/>
-                                <ColumnDefinition Width="1*"/>
-                                <ColumnDefinition Width="6*"/>
-                            </Grid.ColumnDefinitions>
-                            <CheckBox IsEnabled="False" IsChecked="{Binding DataBaseViewModel.MysqlState}"  BorderThickness="2,2,1,1"/>
-                            <Label Grid.Column="1"/>
-                            <Button Command="{Binding DataBaseViewModel.AvailableMysqlCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}"  Grid.Column="2" Content="Mysql" BorderThickness="1,1,2,2"/>
-                        </Grid>
-                    </StackPanel>
-                </Border>
+                    <Label/>
+                    <CheckBox Content="Csv" Grid.Column="2" IsEnabled="False" IsChecked= "{Binding CsvViewModel.CsvState}" BorderThickness="2,2,1,1"/>
+                    <Label/>
+                    <CheckBox Content="Mysql" IsEnabled="False" BorderThickness="2,2,1,1" IsChecked="{Binding DataBaseViewModel.MysqlState}"/>
 
-                <Border BorderThickness="0,1" BorderBrush="Black" Grid.Row="3" >
+                </StackPanel>
+
+                <Border BorderThickness="0,1,0,0" BorderBrush="Black" Grid.Row="1" Height="339" VerticalAlignment="Top" Margin="0,320,0,-167" >
                     <StackPanel IsEnabled="{Binding DataBaseViewModel.AvailableMysql}" Margin="10">
                         <Label Content="Server"/>
                         <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.Server}" BorderThickness="2,2,1,1"/>

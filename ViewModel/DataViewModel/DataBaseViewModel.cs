@@ -2,7 +2,7 @@
 using WPF_LiveChart_MVVM.Service;
 using WPF_LiveChart_MVVM.ViewModel.Command;
 
-namespace WPF_LiveChart_MVVM.ViewModel
+namespace WPF_LiveChart_MVVM.ViewModelml
 {
     class DataBaseViewModel : INotifyPropertyChanged
     {
