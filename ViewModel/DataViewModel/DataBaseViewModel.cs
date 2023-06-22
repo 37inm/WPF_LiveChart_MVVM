@@ -2,7 +2,7 @@
 using WPF_LiveChart_MVVM.Service;
 using WPF_LiveChart_MVVM.ViewModel.Command;
 
-namespace WPF_LiveChart_MVVM.ViewModelml
+namespace WPF_LiveChart_MVVM.ViewModel
 {
     class DataBaseViewModel : INotifyPropertyChanged
     {
@@ -145,6 +145,7 @@ namespace WPF_LiveChart_MVVM.ViewModelml
         public void OpenDatabase()
         {
             _database = new DataBaseService();
+            //DatabaseView _databaseView = new DatabaseView();
             MysqlState = _database.OpenDatabase(UserName, Password, Server, DatabaseServer);
             MysqlToggle = !MysqlState;
             if(MysqlState)

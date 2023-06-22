@@ -110,6 +110,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DatabaseView.xaml.cs">
+      <DependentUpon>DatabaseView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\DataModel.cs" />
     <Compile Include="Service\CsvService.cs" />
     <Compile Include="Service\DataBaseService.cs" />
@@ -123,6 +126,10 @@
     <Compile Include="ViewModel\DataViewModel\TimerViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\ToggleViewModel.cs" />
     <Compile Include="ViewModel\Communication\UdpViewModel.cs" />
+    <Page Include="DatabaseView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

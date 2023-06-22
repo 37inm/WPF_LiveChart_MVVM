@@ -6,7 +6,6 @@ using System.IO.Ports;
 using System.Windows;
 using WPF_LiveChart_MVVM.Model;
 using WPF_LiveChart_MVVM.ViewModel.Command;
-using WPF_LiveChart_MVVM.ViewModelml;
 
 namespace WPF_LiveChart_MVVM.ViewModel
 {
