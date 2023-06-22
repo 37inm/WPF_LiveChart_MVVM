@@ -47,6 +47,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
         {
             _timer.Stop();
             _seconds = 0;
+            TimerContent = "00:00:00";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

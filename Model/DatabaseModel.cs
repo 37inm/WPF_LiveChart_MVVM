@@ -14,5 +14,7 @@ namespace WPF_LiveChart_MVVM.Model
         public string Password { get; set; }
 
         public string TableName { get; set; }
+
+        public bool State { get; set; }
     }
 }

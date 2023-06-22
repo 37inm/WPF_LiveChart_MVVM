@@ -52,9 +52,9 @@ namespace WPF_LiveChart_MVVM.ViewModel
             _databasePopView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             _databasePopViewModel = new DatabasePopViewModel(_databaseModel, this);
             _databasePopView.DataContext = _databasePopViewModel;
-            _databaseModel.Server = "1";
+            _databaseModel.State = false;
             _databasePopView.ShowDialog();
-            if (_databaseModel.Server.Equals("1")) return;
+            if (_databaseModel.State == false) return;
             OpenDatabase();
         }
 

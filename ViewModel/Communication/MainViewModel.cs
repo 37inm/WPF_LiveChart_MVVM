@@ -149,6 +149,13 @@ namespace WPF_LiveChart_MVVM.ViewModel
         {
             SerialCommand = new RelayCommand(ConnectSerial);
             UdpCommand = new RelayCommand(ConnectUdp);
+            ToggleViewModel = new ToggleViewModel();
+            OxyPlotViewModel = new OxyPlotViewModel();
+            databaseModel = new DatabaseModel();
+            DataBaseViewModel = new DataBaseViewModel(databaseModel);
+            CsvViewModel = new CsvViewModel();
+            TimerViewModel = new TimerViewModel();
+            DisplayDataViewModel = new DisplayDataViewModel();
             ConnectSerial();
         }
 
@@ -160,13 +167,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
             UdpToggle = true;
             SerialVisibility = Visibility.Collapsed;
             UdpVisibility = Visibility.Visible;
-            ToggleViewModel = new ToggleViewModel();
-            OxyPlotViewModel = new OxyPlotViewModel();
-            databaseModel = new DatabaseModel();
-            DataBaseViewModel = new DataBaseViewModel(databaseModel);
-            CsvViewModel = new CsvViewModel();
-            TimerViewModel = new TimerViewModel();
-            DisplayDataViewModel = new DisplayDataViewModel();
+            
             UdpViewModel = new UdpViewModel(OxyPlotViewModel, ToggleViewModel, DataBaseViewModel, CsvViewModel, TimerViewModel, DisplayDataViewModel);
 
         }
@@ -178,13 +179,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
             UdpToggle = false;
             SerialVisibility = Visibility.Visible;
             UdpVisibility = Visibility.Collapsed;
-            ToggleViewModel = new ToggleViewModel();
-            OxyPlotViewModel = new OxyPlotViewModel();
-            databaseModel = new DatabaseModel();
-            DataBaseViewModel = new DataBaseViewModel(databaseModel);
-            CsvViewModel = new CsvViewModel();
-            TimerViewModel = new TimerViewModel();
-            DisplayDataViewModel = new DisplayDataViewModel();
+            
             SerialViewModel = new SerialViewModel(OxyPlotViewModel, ToggleViewModel, DataBaseViewModel, CsvViewModel, TimerViewModel, DisplayDataViewModel);
         }
 

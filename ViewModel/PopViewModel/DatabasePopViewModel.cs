@@ -13,6 +13,7 @@ namespace WPF_LiveChart_MVVM.ViewModel.PopViewModel
     {
         DatabaseModel _databaseModel;
         DataBaseViewModel _databaseViewModel;
+
         public string Server { get; set; }
         public string DatabaseServer { get; set; }
         public string UserName { get; set; }
@@ -27,6 +28,11 @@ namespace WPF_LiveChart_MVVM.ViewModel.PopViewModel
             _databaseViewModel = dataBaseViewModel;
             SetCommand = new RelayCommand(Set);
             CancelCommand = new RelayCommand(Close);
+
+            Server = _databaseModel.Server;
+            DatabaseServer = _databaseModel.DatabaseServer;
+            UserName = _databaseModel.UserName;
+            Password = _databaseModel.Password;
         }
 
         private void Close()
@@ -41,6 +47,7 @@ namespace WPF_LiveChart_MVVM.ViewModel.PopViewModel
             _databaseModel.UserName = UserName;
             _databaseModel.Password = Password;
             _databaseModel.TableName = TableName;
+            _databaseModel.State = true;
             _databaseViewModel.Close();
         }
 
