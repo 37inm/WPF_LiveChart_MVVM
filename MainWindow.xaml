@@ -192,12 +192,13 @@
                 </Grid>
             </Border>
         </Grid>
-        
-        <Border BorderThickness="1" Margin="10,10,10,422" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
-            <Grid>
+
+        <Border BorderThickness="1" Margin="10,10,10,369" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
+            <Grid Height="366" VerticalAlignment="Top" Margin="0,0,0,-1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="491"/>
+                    <RowDefinition Height="345"/>
+                    <RowDefinition Height="355"/>
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -207,7 +208,7 @@
                     <ToggleButton Command="{Binding SerialCommand}" IsChecked="{Binding SerialToggle}" IsEnabled="{Binding ToggleViewModel.MainToggle}" Content="Serial" FontWeight="Bold" BorderThickness="1,1,2,1" />
                     <ToggleButton Command="{Binding UdpCommand}" IsChecked="{Binding UdpToggle}" IsEnabled="{Binding ToggleViewModel.MainToggle}" Content="UDP" Grid.Column="1"  FontWeight="Bold" BorderThickness="1,1,2,1"/>
                 </Grid>
-                <StackPanel Margin="10,10,10,266" Grid.Row="1">
+                <StackPanel Margin="10,10,10,241" Grid.Row="1" Grid.RowSpan="2">
                     <TextBlock Text="{Binding TimerViewModel.TimerContent}" TextAlignment="Center" IsEnabled="False" FontWeight="Bold"/>
                     <Label Content="Port" Visibility="{Binding SerialVisibility}" />
                     <Label Content="Ip" Visibility="{Binding UdpVisibility}" />
@@ -221,12 +222,14 @@
                     <Button Command="{Binding SerialViewModel.SerialCommand}" Content="{Binding SerialViewModel.SerialContent}" Visibility="{Binding SerialVisibility}" Height="40" BorderThickness="1,1,2,2"/>
                     <Button Command="{Binding UdpViewModel.UdpCommand}" Content="{Binding UdpViewModel.UdpContent}" Visibility="{Binding UdpVisibility}" Height="40" BorderThickness="1,1,2,2"/>
                     <Label/>
-                    <CheckBox Content="Csv" Grid.Column="2" IsEnabled="False" IsChecked= "{Binding CsvViewModel.CsvState}" BorderThickness="2,2,1,1"/>
+                    <CheckBox Content="Csv" IsEnabled="False" IsChecked= "{Binding CsvViewModel.CsvState}" BorderThickness="2,2,1,1"/>
                     <Label/>
-                    <CheckBox Content="Mysql" IsEnabled="False" BorderThickness="2,2,1,1" IsChecked="{Binding DataBaseViewModel.MysqlState}"/>
-
+                    <TextBlock Text="abc0"/>
+                    <Label/>
+                    <CheckBox Content="Mysql" IsEnabled="False" IsChecked="{Binding DataBaseViewModel.MysqlState}" BorderThickness="2,2,1,1"/>
+                    <Label/>
+                    <TextBlock Text="abc0"/>
                 </StackPanel>
-
             </Grid>
         </Border>
     </Grid>
