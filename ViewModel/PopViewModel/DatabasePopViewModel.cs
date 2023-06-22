@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WPF_LiveChart_MVVM.Model;
+﻿using WPF_LiveChart_MVVM.Model;
 using WPF_LiveChart_MVVM.ViewModel.Command;
 
 namespace WPF_LiveChart_MVVM.ViewModel.PopViewModel
 {
-    class DatabasePopViewModel : INotifyPropertyChanged
+    class DatabasePopViewModel
     {
         DatabaseModel _databaseModel;
         DataBaseViewModel _databaseViewModel;
@@ -51,11 +45,6 @@ namespace WPF_LiveChart_MVVM.ViewModel.PopViewModel
             _databaseViewModel.Close();
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
     }
 }
