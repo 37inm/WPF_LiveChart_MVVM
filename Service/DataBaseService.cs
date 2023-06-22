@@ -9,7 +9,7 @@ namespace WPF_LiveChart_MVVM.Service
     {
         private MySqlConnection connection;
         private string tableName;
-        public bool OpenDatabase(string _userName, string _pw, string _server, string _database)
+        public bool OpenDatabase(string _userName, string _pw, string _server, string _database, string _tableName)
         {
             try
             {
@@ -18,7 +18,7 @@ namespace WPF_LiveChart_MVVM.Service
                 string server = _server;
                 string database = _database;
                 string defaultTableName = DateTime.Now.ToString("yyMMdd_HHmm");
-                tableName = Interaction.InputBox("저장할 테이블의 이름을 입력하세요:", "사용할 테이블 이름 입력", defaultTableName);
+                tableName = _tableName;
                 string connectionString = $"server={server};database={database};uid={uid};password={password};";
                 connection = new MySqlConnection(connectionString);
                 string createTableQuery = "CREATE TABLE IF NOT EXISTS `" + tableName + "` (`Pk` INT NOT NULL AUTO_INCREMENT, " +

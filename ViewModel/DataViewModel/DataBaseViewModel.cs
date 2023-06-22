@@ -1,23 +1,20 @@
 ﻿using System.ComponentModel;
+using System.Windows;
+using WPF_LiveChart_MVVM.Model;
 using WPF_LiveChart_MVVM.Service;
+using WPF_LiveChart_MVVM.View;
 using WPF_LiveChart_MVVM.ViewModel.Command;
+using WPF_LiveChart_MVVM.ViewModel.PopViewModel;
 
 namespace WPF_LiveChart_MVVM.ViewModel
 {
     class DataBaseViewModel : INotifyPropertyChanged
     {
+        DatabasePopView _databasePopView;
+        DatabasePopViewModel _databasePopViewModel;
+        DatabaseModel _databaseModel;
         public DataBaseService _database { get; set; }
 
-        private bool _availableMysql;
-        public bool AvailableMysql
-        {
-            get { return _availableMysql; }
-            set
-            {
-                _availableMysql = value;
-                OnPropertyChanged(nameof(AvailableMysql));
-            }
-        }
 
         private bool _mysqlState;
         public bool MysqlState
@@ -30,86 +27,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
-        private bool _mysqlToggle;
-        public bool MysqlToggle
-        {
-            get { return _mysqlToggle; }
-            set
-            {
-                _mysqlToggle = value;
-                OnPropertyChanged(nameof(MysqlToggle));
-            }
-        }
-
-
-        private string _server;
-        public string Server
-        {
-            get { return _server; }
-            set 
-            { 
-                _server = value;
-                OnPropertyChanged(nameof(Server));
-            }
-        }
-
-        private string _databaseServer;
-        public string DatabaseServer
-        {
-            get { return _databaseServer; }
-            set
-            {
-                _databaseServer = value;
-                OnPropertyChanged(nameof(DatabaseServer));
-            }
-        }
-
-        private string _userName;
-        public string UserName
-        {
-            get { return _userName; }
-            set
-            {
-                _userName = value;
-                OnPropertyChanged(nameof(UserName));
-            }
-        }
-
-        private string _password;
-        public string Password
-        {
-            get { return _password; }
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
-        }
-
-        private string _mysqlContent;
-        public string MysqlContent
-        {
-            get { return _mysqlContent; }
-            set
-            {
-                _mysqlContent = value;
-                OnPropertyChanged(nameof(MysqlContent));
-            }
-        }
-
-
-        private RelayCommand _availableMysqlCommand;
-        public RelayCommand AvailableMysqlCommand
-        {
-            get { return _availableMysqlCommand; }
-            set
-            {
-                _availableMysqlCommand = value;
-                OnPropertyChanged(nameof(AvailableMysqlCommand));
-            }
-
-        }
-
+      
         private RelayCommand _mysqlCommand;
         public RelayCommand MysqlCommand
         {
@@ -121,48 +39,46 @@ namespace WPF_LiveChart_MVVM.ViewModel
             }
         }
 
-
-        public DataBaseViewModel()
+        public DataBaseViewModel(DatabaseModel databaseModel)
         {
-            AvailableMysql = false;
             MysqlState = false;
-            MysqlToggle = true;
-            MysqlContent = "Connect";
-            AvailableMysqlCommand = new RelayCommand(ToggleMysql);
-            MysqlCommand = new RelayCommand(OpenDatabase);
-
-            Server = "127.0.0.1";
-            DatabaseServer = "Hello";
-            UserName = "root";
-            Password = "8546elefjq";
+            MysqlCommand = new RelayCommand(ToggleMysql);
+            _databaseModel = databaseModel;
         }
 
         public void ToggleMysql()
         {
-            AvailableMysql = !AvailableMysql;
+            _databasePopView = new DatabasePopView();
+            _databasePopView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            _databasePopViewModel = new DatabasePopViewModel(_databaseModel, this);
+            _databasePopView.DataContext = _databasePopViewModel;
+            _databaseModel.Server = "1";
+            _databasePopView.ShowDialog();
+            if (_databaseModel.Server.Equals("1")) return;
+            OpenDatabase();
+        }
+
+        public void Close()
+        {
+            _databasePopView.Close();
         }
 
         public void OpenDatabase()
         {
             _database = new DataBaseService();
-            //DatabaseView _databaseView = new DatabaseView();
-            MysqlState = _database.OpenDatabase(UserName, Password, Server, DatabaseServer);
-            MysqlToggle = !MysqlState;
+            MysqlState = _database.OpenDatabase(_databaseModel.UserName, _databaseModel.Password, _databaseModel.Server, _databaseModel.DatabaseServer, _databaseModel.TableName);
             if(MysqlState)
             {
                 MysqlCommand = new RelayCommand(CloseDatabase);
-                MysqlContent = "Close";
             }
         }
 
         public void CloseDatabase()
         {
             MysqlState = _database.CloseDatabase();
-            MysqlToggle = !MysqlState;
             if (!MysqlState)
             {
-                MysqlCommand = new RelayCommand(OpenDatabase);
-                MysqlContent = "Connect";
+                MysqlCommand = new RelayCommand(ToggleMysql);
             }
         }
 

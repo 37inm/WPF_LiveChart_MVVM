@@ -106,39 +106,28 @@ namespace WPF_LiveChart_MVVM.ViewModel
 
         private void OpenSerial()
         {
-            if (_databaseViewModel.AvailableMysql && !_databaseViewModel.MysqlState)
-            {
-                MessageBox.Show("데이터베이스를 연결해주세요!");
-                return;
-            }
-            else
-            {
-                _serialCommunication = new SerialPort();
+            _serialCommunication = new SerialPort();
 
-                try
+            try
+            {
+                _serialCommunication.PortName = SelectedSerialPort;
+                _serialCommunication.BaudRate = SelectedSerialBaudRate;
+                _serialCommunication.DataReceived += SerialPort_DataReceived;
+                _serialCommunication.Open();
+                if (_serialCommunication.IsOpen)
                 {
-                    _serialCommunication.PortName = SelectedSerialPort;
-                    _serialCommunication.BaudRate = SelectedSerialBaudRate;
-                    _serialCommunication.DataReceived += SerialPort_DataReceived;
-                    _serialCommunication.Open();
-                    if (_serialCommunication.IsOpen)
-                    {
-                        _timerViewModel.Start();
-                        SerialCommand = new RelayCommand(CloseSerial);
-                        SerialContent = "Close";
-                        SerialState = false;
-                        _toggleViewModel.MainToggle = false;
-                        _toggleViewModel.SubToggle = false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                    _timerViewModel.Start();
+                    SerialCommand = new RelayCommand(CloseSerial);
+                    SerialContent = "Close";
+                    SerialState = false;
+                    _toggleViewModel.MainToggle = false;
+                    _toggleViewModel.SubToggle = false;
                 }
             }
-
-
-
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -153,7 +142,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 {
                     _databaseViewModel.CloseDatabase();
                 }
-                if(_csvViewModel.CsvState)
+                if (_csvViewModel.CsvState)
                 {
                     _csvViewModel.Close();
                 }
@@ -255,7 +244,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
                             );
                     }
 
-                } else
+                }
+                else
                 {
                     SerialContent = "형식 오류";
                 }

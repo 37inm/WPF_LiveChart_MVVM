@@ -110,9 +110,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DatabaseView.xaml.cs">
-      <DependentUpon>DatabaseView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="Model\DatabaseModel.cs" />
     <Compile Include="Model\DataModel.cs" />
     <Compile Include="Service\CsvService.cs" />
     <Compile Include="Service\DataBaseService.cs" />
@@ -126,10 +124,10 @@
     <Compile Include="ViewModel\DataViewModel\TimerViewModel.cs" />
     <Compile Include="ViewModel\DataViewModel\ToggleViewModel.cs" />
     <Compile Include="ViewModel\Communication\UdpViewModel.cs" />
-    <Page Include="DatabaseView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="ViewModel\PopViewModel\DatabasePopViewModel.cs" />
+    <Compile Include="View\DatabasePopView.xaml.cs">
+      <DependentUpon>DatabasePopView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -142,6 +140,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DatabasePopView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -173,5 +175,6 @@
   <ItemGroup>
     <Resource Include="seo_monitoring_16324.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

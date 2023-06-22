@@ -52,7 +52,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 OnPropertyChanged(nameof(UdpContent));
             }
         }
-        
+
         private bool _udpState;
         public bool UdpState
         {
@@ -98,38 +98,31 @@ namespace WPF_LiveChart_MVVM.ViewModel
 
         public void OpenUdp()
         {
-            if (_databaseViewModel.AvailableMysql && !_databaseViewModel.MysqlState)
+            try
             {
-                MessageBox.Show("데이터베이스를 연결해주세요!");
-                return;
-            } else
-            {
-                try
-                {
-                    _udpClient = new UdpClient(int.Parse(Port));
-                    byte[] data = Encoding.UTF8.GetBytes("abc");
+                _udpClient = new UdpClient(int.Parse(Port));
+                byte[] data = Encoding.UTF8.GetBytes("abc");
 
-                    _udpClient.Send(data, data.Length, Ip, int.Parse(Port));
-                    UdpState = false;
-                    
-                    _udpClient.BeginReceive(ReceiveCallback, null);
+                _udpClient.Send(data, data.Length, Ip, int.Parse(Port));
+                UdpState = false;
 
-                    MessageBox.Show(Ip + ", " + Port + " Connect !");
-                    _timerViewModel.Start();
+                _udpClient.BeginReceive(ReceiveCallback, null);
 
-                    UdpContent = "Close";
-                    UdpCommand = new RelayCommand(CloseUdp);
+                MessageBox.Show(Ip + ", " + Port + " Connect !");
+                _timerViewModel.Start();
 
-                    _toggleViewModel.MainToggle = false;
-                    _toggleViewModel.SubToggle = false;
+                UdpContent = "Close";
+                UdpCommand = new RelayCommand(CloseUdp);
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                _toggleViewModel.MainToggle = false;
+                _toggleViewModel.SubToggle = false;
+
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
 
         public void CloseUdp()
@@ -137,7 +130,7 @@ namespace WPF_LiveChart_MVVM.ViewModel
             UdpState = true;
             _udpClient.Close();
             _timerViewModel.Stop();
-            
+
             if (_databaseViewModel.MysqlState)
             {
                 _databaseViewModel.CloseDatabase();
@@ -239,13 +232,14 @@ namespace WPF_LiveChart_MVVM.ViewModel
                                 _dataModel.Hcho
                                 );
                         }
-                    } else
+                    }
+                    else
                     {
                         UdpContent = "형식 오류";
                     }
-                    
+
                     _udpClient.BeginReceive(ReceiveCallback, null); // 계속해서 데이터 수신 대기
-               
+
                 }
 
                 catch (Exception ex)
@@ -254,8 +248,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
                 }
             }
         }
-    
-        
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged(string propertyName)

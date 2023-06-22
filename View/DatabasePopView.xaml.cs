@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WPF_LiveChart_MVVM
+namespace WPF_LiveChart_MVVM.View
 {
     /// <summary>
-    /// DatabaseView.xaml에 대한 상호 작용 논리
+    /// DatabasePopView.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class DatabaseView : Page
+    public partial class DatabasePopView : Window
     {
-        public DatabaseView()
+        public DatabasePopView()
         {
             InitializeComponent();
         }
+
     }
 }

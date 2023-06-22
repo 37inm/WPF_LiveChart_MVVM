@@ -26,7 +26,7 @@
                     <MenuItem Header="RS485 Mode (준비중..)"/>
                 </MenuItem>
                 <MenuItem Header="_Save" Height="31" Width="40" FontSize="11">
-                    <MenuItem Header="Database" IsChecked="{Binding DataBaseViewModel.MysqlState}" Command="{Binding DataBaseViewModel.AvailableMysqlCommand}" IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" />
+                    <MenuItem Header="Database" IsChecked="{Binding DataBaseViewModel.MysqlState}" Command="{Binding DataBaseViewModel.MysqlCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}" />
                     <Separator />
                     <MenuItem Header="Csv File" IsChecked="{Binding CsvViewModel.CsvState}" Command="{Binding CsvViewModel.CsvCommand}" IsEnabled="{Binding ToggleViewModel.SubToggle}" />
                 </MenuItem>
@@ -192,7 +192,8 @@
                 </Grid>
             </Border>
         </Grid>
-        <Border BorderThickness="1" Margin="10" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
+        
+        <Border BorderThickness="1" Margin="10,10,10,422" BorderBrush="Black" Grid.Column="1" Grid.Row="1">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -226,20 +227,6 @@
 
                 </StackPanel>
 
-                <Border BorderThickness="0,1,0,0" BorderBrush="Black" Grid.Row="1" Height="339" VerticalAlignment="Top" Margin="0,320,0,-167" >
-                    <StackPanel IsEnabled="{Binding DataBaseViewModel.AvailableMysql}" Margin="10">
-                        <Label Content="Server"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.Server}" BorderThickness="2,2,1,1"/>
-                        <Label Content="Database"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.DatabaseServer}" BorderThickness="2,2,1,1"/>
-                        <Label Content="Name"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.UserName}" BorderThickness="2,2,1,1"/>
-                        <Label Content="Password"/>
-                        <TextBox IsEnabled="{Binding DataBaseViewModel.MysqlToggle}" Text="{Binding DataBaseViewModel.Password}" BorderThickness="2,2,1,1"/>
-                        <Label/>
-                        <Button Command="{Binding DataBaseViewModel.MysqlCommand}" IsEnabled="{Binding ToggleViewModel.MainToggle}" Content="{Binding DataBaseViewModel.MysqlContent}" Height="40" BorderThickness="1,1,2,2"/>
-                    </StackPanel>
-                </Border>
             </Grid>
         </Border>
     </Grid>

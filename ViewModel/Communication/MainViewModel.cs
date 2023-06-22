@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using WPF_LiveChart_MVVM.Model;
 using WPF_LiveChart_MVVM.ViewModel.Command;
 
 namespace WPF_LiveChart_MVVM.ViewModel
 {
     class MainViewModel : INotifyPropertyChanged
     {
+        DatabaseModel databaseModel;
 
         private SerialViewModel _serialViewModel;
         public SerialViewModel SerialViewModel
@@ -160,7 +162,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
             UdpVisibility = Visibility.Visible;
             ToggleViewModel = new ToggleViewModel();
             OxyPlotViewModel = new OxyPlotViewModel();
-            DataBaseViewModel = new DataBaseViewModel();
+            databaseModel = new DatabaseModel();
+            DataBaseViewModel = new DataBaseViewModel(databaseModel);
             CsvViewModel = new CsvViewModel();
             TimerViewModel = new TimerViewModel();
             DisplayDataViewModel = new DisplayDataViewModel();
@@ -177,7 +180,8 @@ namespace WPF_LiveChart_MVVM.ViewModel
             UdpVisibility = Visibility.Collapsed;
             ToggleViewModel = new ToggleViewModel();
             OxyPlotViewModel = new OxyPlotViewModel();
-            DataBaseViewModel = new DataBaseViewModel();
+            databaseModel = new DatabaseModel();
+            DataBaseViewModel = new DataBaseViewModel(databaseModel);
             CsvViewModel = new CsvViewModel();
             TimerViewModel = new TimerViewModel();
             DisplayDataViewModel = new DisplayDataViewModel();
