@@ -27,6 +27,7 @@ namespace WPF_LiveChart_MVVM.ViewModel.PopViewModel
             DatabaseServer = _databaseModel.DatabaseServer;
             UserName = _databaseModel.UserName;
             Password = _databaseModel.Password;
+            TableName = _databaseModel.TableName;
         }
 
         private void Close()

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using WPF_LiveChart_MVVM.Model;
 using WPF_LiveChart_MVVM.Service;
@@ -50,9 +51,10 @@ namespace WPF_LiveChart_MVVM.ViewModel
         {
             _databasePopView = new DatabasePopView();
             _databasePopView.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            _databaseModel.State = false;
+            _databaseModel.TableName = DateTime.Now.ToString("yyMMdd_HHmm");
             _databasePopViewModel = new DatabasePopViewModel(_databaseModel, this);
             _databasePopView.DataContext = _databasePopViewModel;
-            _databaseModel.State = false;
             _databasePopView.ShowDialog();
             if (_databaseModel.State == false) return;
             OpenDatabase();
